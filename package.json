@@ -1,0 +1,37 @@
+{
+  "name": "vary-ui-v3",
+  "version": "1.0.25",
+  "description": "A UI Conponent Library based Vue2, Faster, Lighter, Simpler",
+  "homepage": "https://github.com/chinaliyun/vary-ui.git",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "cd docs && yarn dev",
+    "deploy": "webpack-cli --config config/webpack.deploy.config.js",
+    "release": "node release.js"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "ui",
+    "vue3"
+  ],
+  "author": "liyun",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "src",
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "peerDependencies": {},
+  "dependencies": {
+    "moment": "^2.29.3"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "progress": "^2.0.3"
+  }
+}
