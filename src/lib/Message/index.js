@@ -1,9 +1,9 @@
-import app from "app";
+import { createApp } from "vue";
 import Message from "./src/Message";
 
 let instanceMap = [];
 const createComponent = function (type, msg) {
-  const Component = app.extend(Message);
+  const Component = createApp(Message);
   const instance = new Component();
   instanceMap.push(instance);
   instance.init(type, msg, instanceMap.length);

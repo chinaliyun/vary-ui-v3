@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import IconClose from "./icons/close.app";
+import IconClose from "./icons/close";
 export default {
   name: "VarAlert",
   components: {

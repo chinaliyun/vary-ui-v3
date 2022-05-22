@@ -1,4 +1,4 @@
-import app from "app";
+import { createApp } from "vue";
 import Alert from "./src/Alert";
 
 const createComponent = function (type, options) {
@@ -14,7 +14,7 @@ const createComponent = function (type, options) {
     reject(new Error("title 和 content 中的一个必须有值"));
   }
 
-  const Component = app.extend(Alert);
+  const Component = createApp(Alert);
   const eleInstance = new Component();
   const el = eleInstance.$mount().$el;
 

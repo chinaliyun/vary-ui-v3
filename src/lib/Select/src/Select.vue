@@ -55,7 +55,7 @@
 </template>
 <script>
 import IconClear from "./icons/clear";
-import IconArrow from "./icons/arrow.app";
+import IconArrow from "./icons/arrow";
 export default {
   name: "VarSelect",
   model: {

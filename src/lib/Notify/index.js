@@ -1,4 +1,4 @@
-import app from "app";
+import { createApp } from "vue";
 import Notify from "./src/Notify";
 
 let nextInstance = [];
@@ -35,7 +35,7 @@ const createComponent = function (type, options) {
   instanceMap.forEach((item) => {
     top += item.$el.getBoundingClientRect().height + 20;
   });
-  const Component = app.extend(Notify);
+  const Component = createApp(Notify);
   const instance = new Component();
 
   realOptions.top = top;

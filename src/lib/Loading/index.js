@@ -1,10 +1,10 @@
-import app from "app";
+import { createApp } from "vue";
 import Loading from "./src/Loading";
 
 let globalComponentInstance = null;
 
 function createGlobalInstance(options, parentNode) {
-  const component = app.extend(Loading);
+  const component = createApp(Loading);
   globalComponentInstance = new component();
   globalComponentInstance.init(options);
   const ele = globalComponentInstance.$mount().$el;
@@ -20,7 +20,7 @@ function createGlobalInstance(options, parentNode) {
 }
 
 function createSingleInstance(options, parentNode) {
-  const component = app.extend(Loading);
+  const component = createApp(Loading);
   let singleComponentInstance = new component();
   singleComponentInstance.init(options);
   const ele = singleComponentInstance.$mount().$el;

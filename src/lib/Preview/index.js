@@ -1,7 +1,7 @@
-import app from "app";
+import { createApp } from "vue";
 import Preview from "./src/Preview";
 
-const ExtendComponent = app.extend(Preview);
+const ExtendComponent = createApp(Preview);
 
 /**
  *

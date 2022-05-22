@@ -59,8 +59,8 @@ function getEleTransformProperty() {
   return transformProperty.match(/-?\d+(\.\d+)?/g).map((item) => item * 1);
 }
 
-import IconArrow from "./icons/arrow.app";
-import IconClose from "./icons/close.app";
+import IconArrow from "./icons/arrow";
+import IconClose from "./icons/close";
 
 const imgError = require("./images/img_error.svg");
 

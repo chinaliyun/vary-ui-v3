@@ -142,9 +142,9 @@
 <script>
 import moment from "moment";
 import IconYear from "./icons/year";
-import IconMonth from "./icons/month.app";
-import IconClear from "./icons/clear.app";
-import IconArrow from "./icons/arrow.app";
+import IconMonth from "./icons/month";
+import IconClear from "./icons/clear";
+import IconArrow from "./icons/arrow";
 function zero(v) {
   return v < 10 ? "0" + v : v;
 }

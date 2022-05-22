@@ -73,7 +73,7 @@ function upload(file) {
     }, 500 + Math.random() * 1000);
   });
 }
-import IconSuccess from "./icons/success.app";
+import IconSuccess from "./icons/success";
 export default {
   name: "VarUpload",
   components: {

@@ -1,6 +1,6 @@
 {
   "name": "vary-ui-v3",
-  "version": "1.0.25",
+  "version": "1.0.2",
   "description": "A UI Conponent Library based Vue2, Faster, Lighter, Simpler",
   "homepage": "https://github.com/chinaliyun/vary-ui.git",
   "main": "src/index.js",
@@ -15,6 +15,7 @@
     "ui",
     "vue3"
   ],
+  "type": "commonjs",
   "author": "liyun",
   "license": "ISC",
   "publishConfig": {

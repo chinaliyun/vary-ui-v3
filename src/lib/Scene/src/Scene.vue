@@ -3,7 +3,6 @@
     class="v_scene"
     :class="[attachClass]"
     :style="{ ...realStyle, ...bounding }"
-    v-on="$listeners"
   >
     <slot></slot>
   </div>
