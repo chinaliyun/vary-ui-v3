@@ -6,8 +6,8 @@ const {
 
 const { viteBundler } = require("@vuepress/bundler-vite");
 module.exports = {
-  title: "VaryUI",
-  description: "以Vue2.0为基础的UI组件库",
+  title: "VaryUI-V3",
+  description: "以Vue3.0为基础的UI组件库",
   plugins: [
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, "./components"),
