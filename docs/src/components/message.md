@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Message-Base/>
 
-<<< ./src/.vuepress/components/Message/Base.vue
+@[code](../.vuepress/components/Message/Base.vue)
 
 ## 弹窗类型
 
@@ -22,4 +22,4 @@ pageClass: custom-page-class
 
 <Message-Type/>
 
-<<< ./src/.vuepress/components/Message/Type.vue
+@[code](../.vuepress/components/Message/Type.vue)

@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Alert-Base/>
 
-<<< ./src/.vuepress/components/Alert/Base.vue
+@[code](../.vuepress/components/Alert/Base.vue)
 
 在上面的案例中, 当用户点击`确定`按钮后, 可以通过`Promise.resolve`事件, 当用户点击了遮罩层或者取消按钮后, 会通过`Promise.catch`事件, 而且可以通过`cancel:true`与`close:true`区分取消按钮关闭事件与用户点击遮罩层关闭事件
 
@@ -24,7 +24,7 @@ pageClass: custom-page-class
 
 <Alert-Type/>
 
-<<< ./src/.vuepress/components/Alert/Type.vue
+@[code](../.vuepress/components/Alert/Type.vue)
 
 ## options
 

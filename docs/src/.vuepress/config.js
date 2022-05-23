@@ -1,7 +1,36 @@
 const path = require("path");
+const { defaultTheme } = require("vuepress");
+const {
+  registerComponentsPlugin,
+} = require("@vuepress/plugin-register-components");
+
+const { viteBundler } = require("@vuepress/bundler-vite");
 module.exports = {
   title: "VaryUI",
   description: "以Vue2.0为基础的UI组件库",
+  plugins: [
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, "./components"),
+    }),
+  ],
+  alias: {
+    "@variable": path.resolve(__dirname, "./index.scss"),
+  },
+  bundler: viteBundler({
+    viteOptions: {
+      resolve: {
+        extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
+      },
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData: `@use "@variable" as *;`,
+          },
+        },
+      },
+    },
+    vuePluginOptions: {},
+  }),
   head: [
     ["meta", { name: "theme-color", content: "#3eaf7c" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
@@ -11,13 +40,9 @@ module.exports = {
     ],
   ],
   dest: path.resolve(__dirname, "../../dist"),
-  themeConfig: {
-    repo: "",
-    editLinks: false,
-    docsDir: "",
-    editLinkText: "",
-    lastUpdated: false,
-    nav: [
+  theme: defaultTheme({
+    // default theme config
+    navbar: [
       {
         text: "组件",
         link: "/components/avatar",
@@ -26,23 +51,19 @@ module.exports = {
     sidebar: {
       "/components/": [
         {
-          title: "安装及环境",
-          collapsable: false,
+          text: "安装及环境",
           children: ["install", "variable"],
         },
         {
-          title: "布局",
-          collapsable: false,
+          text: "布局",
           children: ["scene", "space"],
         },
         {
-          title: "表格",
-          collapsable: false,
+          text: "表格",
           children: ["table"],
         },
         {
-          title: "表单",
-          collapsable: false,
+          text: "表单",
           children: [
             "field",
             "input",
@@ -54,43 +75,50 @@ module.exports = {
           ],
         },
         {
-          title: "组件库",
-          collapsable: false,
+          text: "组件库",
           children: ["avatar", "button", "link", "card", "preview"],
         },
         {
-          title: "弹出窗",
-          collapsable: false,
+          text: "弹出窗",
           children: ["alert", "message", "notify", "dialog", "loading"],
         },
       ],
       "/options/": [
         {
-          title: "选项",
-          collapsable: true,
+          text: "选项",
           children: [""],
         },
       ],
     },
-  },
-  markdown: {
-    lineNumbers: true,
-  },
-
-  /**
-   * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
-   */
-  plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
-  scss: {
-    prependData: `
-    @import "@styles/index.scss";
-    `,
-  },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        "@styles": path.resolve(__dirname, "./styles"),
-      },
-    },
-  },
+  }),
 };
+
+// module.exports = {
+//   themeConfig: {
+//     repo: "",
+//     editLinks: false,
+//     docsDir: "",
+//     editLinkText: "",
+//     lastUpdated: false,
+//   },
+//   markdown: {
+//     lineNumbers: true,
+//   },
+
+//   /**
+//    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
+//    */
+//   plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
+//   scss: {
+//     prependData: `
+//     @import "@styles/index.scss";
+//     `,
+//   },
+//   configureWebpack: {
+//     resolve: {
+//       alias: {
+//         "@styles": path.resolve(__dirname, "./styles"),
+//       },
+//     },
+//   },
+// };

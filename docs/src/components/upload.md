@@ -14,7 +14,7 @@ pageClass: custom-page-class
 
 <Upload-Base/>
 
-<<< ./src/.vuepress/components/Upload/Base.vue
+@[code](../.vuepress/components/Upload/Base.vue)
 
 ## 实际应用
 
@@ -35,7 +35,7 @@ pageClass: custom-page-class
 
 <Upload-Case/>
 
-<<< ./src/.vuepress/components/Upload/Case.vue
+@[code](../.vuepress/components/Upload/Case.vue)
 
 ## 从组件外部触发上传
 

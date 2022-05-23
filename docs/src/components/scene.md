@@ -8,7 +8,7 @@ pageClass: custom-page-class
 
 <Scene-Empty/>
 
-<<< ./src/.vuepress/components/Scene/Empty.vue
+@[code](../.vuepress/components/Scene/Empty.vue)
 
 ## 设置宽高尺寸
 
@@ -16,7 +16,7 @@ Scene 组件支持快速为元素设置尺寸, 纯数字会默认当做`px`单�
 
 <Scene-Size/>
 
-<<< ./src/.vuepress/components/Scene/Size.vue
+@[code](../.vuepress/components/Scene/Size.vue)
 
 ## 设置内边距
 
@@ -24,7 +24,7 @@ Scene 组件支持快速为元素添加内边距
 
 <Scene-Padding/>
 
-<<< ./src/.vuepress/components/Scene/Padding.vue
+@[code](../.vuepress/components/Scene/Padding.vue)
 
 ## flex 布局
 
@@ -32,7 +32,7 @@ Scene 组件支持快速为元素添加内边距
 
 <Scene-Flex/>
 
-<<< ./src/.vuepress/components/Scene/Flex.vue
+@[code](../.vuepress/components/Scene/Flex.vue)
 
 ## 水平对齐方式
 
@@ -49,11 +49,11 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-AlignX/>
 
-<<< ./src/.vuepress/components/Scene/AlignX.vue
+@[code](../.vuepress/components/Scene/AlignX.vue)
 
 <Scene-Arround/>
 
-<<< ./src/.vuepress/components/Scene/Arround.vue
+@[code](../.vuepress/components/Scene/Arround.vue)
 
 ## 垂直对齐方式
 
@@ -61,13 +61,13 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-AlignY/>
 
-<<< ./src/.vuepress/components/Scene/AlignY.vue
+@[code](../.vuepress/components/Scene/AlignY.vue)
 
 ## 组合对齐方式
 
 <Scene-Align/>
 
-<<< ./src/.vuepress/components/Scene/Align.vue
+@[code](../.vuepress/components/Scene/Align.vue)
 
 ## 控制子元素排列方向
 
@@ -75,7 +75,7 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-Direction/>
 
-<<< ./src/.vuepress/components/Scene/Direction.vue
+@[code](../.vuepress/components/Scene/Direction.vue)
 
 ## 允许子元素扩展宽度
 
@@ -83,7 +83,7 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-Fill/>
 
-<<< ./src/.vuepress/components/Scene/Fill.vue
+@[code](../.vuepress/components/Scene/Fill.vue)
 
 ## 允许元素本身扩展宽度
 
@@ -91,7 +91,7 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-Grow/>
 
-<<< ./src/.vuepress/components/Scene/Grow.vue
+@[code](../.vuepress/components/Scene/Grow.vue)
 
 ## 禁止元素扩展/缩放
 
@@ -99,7 +99,7 @@ flex 布局中, UI 库提供了几种基础的对齐方式:
 
 <Scene-Fixed/>
 
-<<< ./src/.vuepress/components/Scene/Fixed.vue
+@[code](../.vuepress/components/Scene/Fixed.vue)
 
 ## 栅格化响应式布局
 
@@ -124,4 +124,4 @@ Scene 组件提供了 6 种基础网格化布局的属性, 能满足大部分场
 
 <Scene-Row/>
 
-<<< ./src/.vuepress/components/Scene/Row.vue
+@[code](../.vuepress/components/Scene/Row.vue)

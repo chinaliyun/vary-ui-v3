@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Table-Base/>
 
-<<< ./src/.vuepress/components/Table/Base.vue
+@[code](../.vuepress/components/Table/Base.vue)
 
 ## 完整的边框
 
@@ -47,7 +47,7 @@ pageClass: custom-page-class
 <br/>
 <Table-Width/> -->
 
-<<< ./src/.vuepress/components/Table/Width.vue
+@[code](../.vuepress/components/Table/Width.vue)
 
 ## 固定列
 
@@ -57,7 +57,7 @@ pageClass: custom-page-class
 
 <Table-Scroll/>
 
-<<< ./src/.vuepress/components/Table/Scroll.vue
+@[code](../.vuepress/components/Table/Scroll.vue)
 
 ## 动态插槽
 
@@ -67,7 +67,7 @@ pageClass: custom-page-class
 
 <Table-Slot/>
 
-<<< ./src/.vuepress/components/Table/Slot.vue
+@[code](../.vuepress/components/Table/Slot.vue)
 
 ## 快速修改样式
 
@@ -79,7 +79,7 @@ pageClass: custom-page-class
 
 <Table-Style/>
 
-<<< ./src/.vuepress/components/Table/Style.vue
+@[code](../.vuepress/components/Table/Style.vue)
 
 ## props
 

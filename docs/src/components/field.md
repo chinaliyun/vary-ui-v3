@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Field-Base/>
 
-<<< ./src/.vuepress/components/Field/Base.vue
+@[code](../.vuepress/components/Field/Base.vue)
 
 ## 排列方向
 
@@ -21,7 +21,7 @@ pageClass: custom-page-class
 
 <Field-Vertical/>
 
-<<< ./src/.vuepress/components/Field/Vertical.vue
+@[code](../.vuepress/components/Field/Vertical.vue)
 
 ## label 的尺寸与位置
 
@@ -31,7 +31,7 @@ pageClass: custom-page-class
 
 <Field-Size/>
 
-<<< ./src/.vuepress/components/Field/Size.vue
+@[code](../.vuepress/components/Field/Size.vue)
 
 水平排列的情况下, `label` 与实际控件在水平方向上是居中对齐的, 但是在某些情境下, 需要`label`与控件顶部对齐, 为此, 组件也提供了`top`属性来实现这个功能(`vertical` 模式下,该属性是无效的)
 
@@ -39,7 +39,7 @@ pageClass: custom-page-class
 
 <Field-Top/>
 
-<<< ./src/.vuepress/components/Field/Top.vue
+@[code](../.vuepress/components/Field/Top.vue)
 
 ## props
 

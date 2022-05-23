@@ -10,7 +10,7 @@ pageClass: custom-page-class
 
 <Radio-Base/>
 
-<<< ./src/.vuepress/components/Radio/Base.vue
+@[code](../.vuepress/components/Radio/Base.vue)
 
 ## 控件状态改变事件
 

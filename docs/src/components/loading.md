@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Loading-Base/>
 
-<<< ./src/.vuepress/components/Loading/Base.vue
+@[code](../.vuepress/components/Loading/Base.vue)
 
 ## 自定义指令
 
@@ -21,4 +21,4 @@ pageClass: custom-page-class
 
 <Loading-Directive/>
 
-<<< ./src/.vuepress/components/Loading/Directive.vue
+@[code](../.vuepress/components/Loading/Directive.vue)

@@ -10,7 +10,7 @@ pageClass: custom-page-class
 
 <Avatar-Base/>
 
-<<< ./src/.vuepress/components/Avatar/Base.vue
+@[code](../.vuepress/components/Avatar/Base.vue)
 
 ## 自定义尺寸
 
@@ -20,7 +20,7 @@ pageClass: custom-page-class
 
 <Avatar-Size/>
 
-<<< ./src/.vuepress/components/Avatar/Size.vue
+@[code](../.vuepress/components/Avatar/Size.vue)
 
 ## props
 

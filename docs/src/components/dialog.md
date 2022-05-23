@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Dialog-Base/>
 
-<<< ./src/.vuepress/components/Dialog/Base.vue
+@[code](../.vuepress/components/Dialog/Base.vue)
 
 ## props
 

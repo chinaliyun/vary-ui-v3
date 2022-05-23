@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Base/>
 
-<<< ./src/.vuepress/components/Input/Base.vue
+@[code](../.vuepress/components/Input/Base.vue)
 
 ## 前后插槽
 
@@ -20,7 +20,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Slot/>
 
-<<< ./src/.vuepress/components/Input/Slot.vue
+@[code](../.vuepress/components/Input/Slot.vue)
 
 ## 错误警告状态
 
@@ -29,7 +29,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Error/>
 
-<<< ./src/.vuepress/components/Input/Error.vue
+@[code](../.vuepress/components/Input/Error.vue)
 
 ## 限制输入格式
 
@@ -42,7 +42,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Format/>
 
-<<< ./src/.vuepress/components/Input/Format.vue
+@[code](../.vuepress/components/Input/Format.vue)
 
 ## 输入框类型
 
@@ -51,7 +51,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Type/>
 
-<<< ./src/.vuepress/components/Input/Type.vue
+@[code](../.vuepress/components/Input/Type.vue)
 
 ## 输入框备选项
 
@@ -60,7 +60,7 @@ pageClass: custom-page-class
 <br/>
 <Input-Option/>
 
-<<< ./src/.vuepress/components/Input/Option.vue
+@[code](../.vuepress/components/Input/Option.vue)
 
 ## props
 

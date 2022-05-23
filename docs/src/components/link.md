@@ -9,7 +9,7 @@ pageClass: custom-page-class
 <br/>
 <Link-Base/>
 
-<<< ./src/.vuepress/components/Link/Base.vue
+@[code](../.vuepress/components/Link/Base.vue)
 
 ## 添加防抖功能
 
@@ -18,7 +18,7 @@ pageClass: custom-page-class
 <br/>
 <Link-Wait/>
 
-<<< ./src/.vuepress/components/Link/Wait.vue
+@[code](../.vuepress/components/Link/Wait.vue)
 
 ## 禁用状态
 
@@ -27,7 +27,7 @@ pageClass: custom-page-class
 <br/>
 <Link-Disabled/>
 
-<<< ./src/.vuepress/components/Link/Disabled.vue
+@[code](../.vuepress/components/Link/Disabled.vue)
 
 ## 前置插槽
 

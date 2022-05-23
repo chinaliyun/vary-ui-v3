@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Space-Base/>
 
-<<< ./src/.vuepress/components/Space/Base.vue
+@[code](../.vuepress/components/Space/Base.vue)
 
 ## props
 

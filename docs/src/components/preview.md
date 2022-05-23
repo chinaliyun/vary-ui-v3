@@ -24,7 +24,7 @@ pageClass: custom-page-class
 
 <Preview-Base/>
 
-<<< ./src/.vuepress/components/Preview/Base.vue
+@[code](../.vuepress/components/Preview/Base.vue)
 
 ## 各种状态下的图例
 

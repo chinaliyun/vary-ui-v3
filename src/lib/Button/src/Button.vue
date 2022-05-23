@@ -94,6 +94,7 @@ export default {
   background-color: $button-background-color;
   color: $button-color;
   flex-shrink: 0;
+  display: inline-block;
   &:hover {
     background-color: darken($button-background-color, 4%);
   }

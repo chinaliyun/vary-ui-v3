@@ -1,22 +1,15 @@
 {
-  "name": "ui-docs",
-  "version": "0.0.1",
-  "description": "",
+  "name": "docs",
+  "version": "1.0.0",
   "main": "index.js",
-  "authors": {
-    "name": "chinaloki",
-    "email": ""
+  "license": "MIT",
+  "devDependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-beta.45",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.45",
+    "vuepress": "^2.0.0-beta.45"
   },
-  "repository": "/ui-docs",
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "vuepress": "^1.9.7"
-  },
-  "dependencies": {}
+  }
 }

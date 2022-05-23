@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Textarea-Base/>
 
-<<< ./src/.vuepress/components/Textarea/Base.vue
+@[code](../.vuepress/components/Textarea/Base.vue)
 
 ## props
 

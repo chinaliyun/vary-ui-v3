@@ -12,7 +12,7 @@ pageClass: custom-page-class
 
 <Notify-Base/>
 
-<<< ./src/.vuepress/components/Notify/Base.vue
+@[code](../.vuepress/components/Notify/Base.vue)
 
 ## 弹窗类型
 
@@ -22,7 +22,7 @@ pageClass: custom-page-class
 
 <Notify-Type/>
 
-<<< ./src/.vuepress/components/Notify/Type.vue
+@[code](../.vuepress/components/Notify/Type.vue)
 
 ## options
 

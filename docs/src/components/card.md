@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Card-Base/>
 
-<<< ./src/.vuepress/components/Card/Base.vue
+@[code](../.vuepress/components/Card/Base.vue)
 
 ## 副标题插槽
 
@@ -21,7 +21,7 @@ pageClass: custom-page-class
 
 <Card-SubTitle/>
 
-<<< ./src/.vuepress/components/Card/SubTitle.vue
+@[code](../.vuepress/components/Card/SubTitle.vue)
 
 ## props
 

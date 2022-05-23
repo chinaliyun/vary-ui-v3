@@ -11,7 +11,7 @@ pageClass: custom-page-class
 <br/>
 <Checkbox-Base/>
 
-<<< ./src/.vuepress/components/Checkbox/Base.vue
+@[code](../.vuepress/components/Checkbox/Base.vue)
 
 ## 复选框组
 
@@ -20,7 +20,7 @@ pageClass: custom-page-class
 <br/>
 <Checkbox-Group/>
 
-<<< ./src/.vuepress/components/Checkbox/Group.vue
+@[code](../.vuepress/components/Checkbox/Group.vue)
 
 ## 半选状态
 
@@ -29,7 +29,7 @@ pageClass: custom-page-class
 <br/>
 <Checkbox-Uncertain/>
 
-<<< ./src/.vuepress/components/Checkbox/Uncertain.vue
+@[code](../.vuepress/components/Checkbox/Uncertain.vue)
 
 ## props
 

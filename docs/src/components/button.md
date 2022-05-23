@@ -9,7 +9,7 @@ pageClass: custom-page-class
 <br/>
 <Button-Base/>
 
-<<< ./src/.vuepress/components/Button/Base.vue
+@[code](../.vuepress/components/Button/Base.vue)
 
 ## 边框风格的按钮
 
@@ -18,7 +18,7 @@ pageClass: custom-page-class
 <br/>
 <Button-Border/>
 
-<<< ./src/.vuepress/components/Button/Border.vue
+@[code](../.vuepress/components/Button/Border.vue)
 
 ## 设置按钮宽度
 
@@ -27,7 +27,7 @@ pageClass: custom-page-class
 <br/>
 <Button-Width/>
 
-<<< ./src/.vuepress/components/Button/Width.vue
+@[code](../.vuepress/components/Button/Width.vue)
 
 如果实在希望把按钮设置为`块元素`,可以通过`:style="display:'block'"`或者通过 SFC 来实现
 
@@ -38,7 +38,7 @@ pageClass: custom-page-class
 <br/>
 <Button-Wait/>
 
-<<< ./src/.vuepress/components/Button/Wait.vue
+@[code](../.vuepress/components/Button/Wait.vue)
 
 ## 禁用状态
 
@@ -47,7 +47,7 @@ pageClass: custom-page-class
 <br/>
 <Button-Disabled/>
 
-<<< ./src/.vuepress/components/Button/Disabled.vue
+@[code](../.vuepress/components/Button/Disabled.vue)
 
 ## 前置插槽
 
