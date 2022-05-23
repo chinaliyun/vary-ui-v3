@@ -3,7 +3,7 @@
     class="v_button"
     :class="{ primary, warning, error, success, border, disabled }"
     :style="bounding"
-    @click.stop="clickTrigger"
+    @click="trigger($event)"
   >
     <var-scene flex center middle>
       <slot name="prefix" />
@@ -15,12 +15,14 @@
 <script>
 import { debounce } from "../../../utils";
 import Mixin from "../../../mixin";
+
+let debounceTimer = null;
 export default {
   name: "VarButton",
   mixins: [Mixin],
   props: {
     wait: {
-      type: [String, Number, Boolean],
+      type: String,
       default: "800",
     },
     prefixIcon: {
@@ -39,7 +41,6 @@ export default {
     return {
       realWait: 0,
       classAttrs: [],
-      styleMap: {},
     };
   },
   mounted() {
@@ -47,38 +48,34 @@ export default {
   },
   methods: {
     init() {
-      const style = {};
-      const width = this.w || this.width;
-      if (/^\d+$/.test(width) && width > 0) {
-        style.width = width + "px";
-        this.styleMap = style;
-      }
-      if (this.wait === false) {
-        this._clickTrigger = () => {
-          this.$emit("click");
-        };
+      if (/^\d+$/.test(this.wait)) {
+        this.realWait = parseInt(this.wait);
       } else {
-        this.realWait = 1000;
-        const { wait } = this.wait;
-        if (/^\d+$/.test(wait) && wait > 0) {
-          this.realWait = parseInt(wait);
-        }
-        this._clickTrigger = debounce(
-          function () {
-            this.$emit("click");
-          },
-          this.realWait,
-          {
-            leading: true,
-            trailing: false,
-          }
-        );
+        this.realWait = 800;
       }
     },
-    clickTrigger() {
-      if (!this.disabled) {
-        this._clickTrigger();
+    trigger(e) {
+      if (this.disabled) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return;
       }
+      if (debounceTimer) {
+        // 定时器已存在, 禁止冒泡
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        // clearTimeout(debounceTimer);
+        // debounceTimer = setTimeout(() => {
+        //   clearTimeout(debounceTimer);
+        //   debounceTimer = null;
+        // }, this.realWait);
+        return;
+      }
+      // 如果定时器不存在,
+      debounceTimer = setTimeout(() => {
+        clearTimeout(debounceTimer);
+        debounceTimer = null;
+      }, this.realWait);
     },
   },
 };

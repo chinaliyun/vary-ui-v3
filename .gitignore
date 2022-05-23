@@ -3,3 +3,5 @@ yarn-error.log
 dist
 node_modules
 .DS_Store
+.temp
+.cache
