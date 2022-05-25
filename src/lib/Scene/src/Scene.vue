@@ -189,122 +189,122 @@ export default {
     flex-shrink: 0;
   }
   &.xs-1 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 16.66666%;
     }
   }
   &.xs-2 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 33.333333%;
     }
   }
   &.xs-3 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 50%;
     }
   }
   &.xs-4 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 66.66666%;
     }
   }
   &.xs-5 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 83.333333%;
     }
   }
   &.xs-6 {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: $media-xs-width) {
       width: 100%;
     }
   }
   &.sm-1 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 16.66666%;
     }
   }
   &.sm-2 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 33.333333%;
     }
   }
   &.sm-3 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 50%;
     }
   }
   &.sm-4 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 66.66666%;
     }
   }
   &.sm-5 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 83.333333%;
     }
   }
   &.sm-6 {
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: $media-sm-width) {
       width: 100%;
     }
   }
   &.md-1 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 16.66666%;
     }
   }
   &.md-2 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 33.333333%;
     }
   }
   &.md-3 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 50%;
     }
   }
   &.md-4 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 66.66666%;
     }
   }
   &.md-5 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 83.333333%;
     }
   }
   &.md-6 {
-    @media screen and (min-width: 1190px) {
+    @media screen and (min-width: $media-md-width) {
       width: 100%;
     }
   }
   &.lg-1 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 16.66666%;
     }
   }
   &.lg-2 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 33.333333%;
     }
   }
   &.lg-3 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 50%;
     }
   }
   &.lg-4 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 66.66666%;
     }
   }
   &.lg-5 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 83.333333%;
     }
   }
   &.lg-6 {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: $media-lg-width) {
       width: 100%;
     }
   }
