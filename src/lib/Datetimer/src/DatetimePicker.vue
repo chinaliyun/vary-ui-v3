@@ -1,17 +1,29 @@
+<!--
+
+1.  要允许用户使用v-dater单独选择日期
+  所以 dater必须有自己的输入框, 及带边框的弹窗
+2.  允许用户使用v-timer单独选择时间
+  所以 timer必须有自己的输入框, 及带边框的弹窗
+3.  允许用户使用v-datetimer混合混合选择, 
+  所以 datetimer要允许同时展示多个dater与timer,必须有自己的边框 且当dater在datetime中展示时, dater组件不能有自己的边框,
+  
+
+
+
+
+-->
 <template>
   <div class="v_datetimer">
     <var-scene flex middle class="v_datetimer_input">
-      <div class="range_begin">{{ rangeBeginValue }}</div>
+      <div class="range_begin">{{ beginValue }}</div>
       <div v-if="ready && range">至</div>
-      <div v-if="ready && range" class="range_end">{{ rangeEndValue }}</div>
+      <div v-if="ready && range" class="range_end">{{ endValue }}</div>
     </var-scene>
     <div v-if="ready" class="v_datetimer_dialog show">
       <div class="arrow_top"></div>
-      <div class="v_daetimer_dialog_outer">
-        <VarDater
-          v-if="format.includes('yyyy')"
-          :value.sync="rangeBeginValue"
-        />
+      <div class="v_datetimer_dialog_outer">
+        <VarDater />
+        <VarTimer />
       </div>
     </div>
   </div>
@@ -31,7 +43,7 @@ const formatDict = [
 
 import moment from "moment";
 export default {
-  name: "VarDatetimer",
+  name: "VarDatetimePicker",
   model: {
     prop: "value",
     event: "change",
@@ -39,7 +51,8 @@ export default {
   data() {
     return {
       ready: false,
-      rangeBeginValue: "",
+      beginValue: "",
+      endValue: "",
     };
   },
   props: {
@@ -61,7 +74,7 @@ export default {
      */
     format: {
       type: String,
-      default: "yyyy-mm-dd",
+      default: "YYYY-MM-DD HH:mm:ss",
     },
     placeholder: {
       type: String,
@@ -91,37 +104,41 @@ export default {
   provide() {
     return {
       ...this.$props,
+      inDatetimer: true,
+      beginValue: () => this.beginValue,
+      endValue: () => this.endValue,
     };
   },
   created() {
-    // 检查range与value的关系
-    if (this.range && Array.isArray(this.value)) {
-      throw new Error("when prop range was true, v-model must be an Array");
-    }
-    // 检查format格式
-    if (!formatDict.includes(this.format.toLowerCase())) {
-      throw new Error("prop foramt invalid");
-    }
+    // // 检查range与value的关系
+    // if (this.range && Array.isArray(this.value)) {
+    //   throw new Error("when prop range was true, v-model must be an Array");
+    // }
+    // // 检查format格式
+    // if (!formatDict.includes(this.format.toLowerCase())) {
+    //   throw new Error("prop foramt invalid");
+    // }
     // 检查value格式
     if (this.range) {
-      this.rangeBeginValue = this.verifyValue(this.value[0]);
-      this.rangeEndValue = this.verifyValue(this.value[1]);
+      this.beginValue = this.verifyValue(this.value[0]);
+      this.endValue = this.verifyValue(this.value[1]);
     } else {
-      this.rangeBeginValue = this.verifyValue(this.value);
+      this.beginValue = this.verifyValue(this.value);
     }
     this.ready = true;
   },
   methods: {
     verifyValue(v) {
-      const reg = new RegExp("^" + this.format.replace(/[ymdhis]/, "d") + "$");
-      if (v && reg.test(v)) {
-        throw new Error("value与format格式不一致");
-      }
-      if (!v) {
-        return moment().format("YYYY-MM-DD HH:mm:ss");
-      } else {
-        return moment(v).format("YYYY-MM-DD HH:mm:ss");
-      }
+      return v;
+      // const reg = new RegExp("^" + this.format.replace(/[ymdhis]/, "d") + "$");
+      // if (v && reg.test(v)) {
+      //   throw new Error("value与format格式不一致");
+      // }
+      // if (!v) {
+      //   return moment().format("YYYY-MM-DD HH:mm:ss");
+      // } else {
+      //   return moment(v).format("YYYY-MM-DD HH:mm:ss");
+      // }
     },
   },
 };
@@ -197,7 +214,7 @@ export default {
       border-left: none;
       border-top: none;
     }
-    .v_daetimer_dialog_outer {
+    .v_datetimer_dialog_outer {
       border: 1px solid $border-color2;
       border-radius: 4px;
       background-color: white;

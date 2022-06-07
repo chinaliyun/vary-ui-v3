@@ -3,7 +3,7 @@ import Avatar from "./lib/Avatar";
 import Button from "./lib/Button";
 import Card from "./lib/Card";
 import Checkbox from "./lib/Checkbox";
-// import DatetimePicker from "./lib/DatetimePicker";
+import Datetimer from "./lib/Datetimer";
 import Dialog from "./lib/Dialog";
 import Field from "./lib/Field";
 import Input from "./lib/Input";
@@ -30,7 +30,7 @@ let components = [
   Button,
   Card,
   Checkbox,
-  // DatetimePicker,
+  Datetimer,
   Dialog,
   Field,
   Input,
@@ -66,7 +66,7 @@ export {
   // Button,
   // Card,
   // Checkbox,
-  // DatetimePicker,
+  // Datetimer,
   // Dialog,
   // Field,
   // Input,

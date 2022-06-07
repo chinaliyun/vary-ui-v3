@@ -1,12 +1,11 @@
-import Datetimer from "./src/Datetimer";
-import Dater from "./src/Dater";
-import Timer from "./src/Timer";
+import DatetimePicker from "./src/DatetimePicker";
+import DatePicker from "./src/DatePicker";
+import TimePicker from "./src/TimePicker";
 
-/* istanbul ignore next */
-Datetimer.install = function (app) {
-  app.component(Datetimer.name, Datetimer);
-  app.component(Dater.name, Dater);
-  app.component(Timer.name, Timer);
+export default {
+  install: function (app) {
+    app.component(DatetimePicker.name, DatetimePicker);
+    app.component(DatePicker.name, DatePicker);
+    app.component(TimePicker.name, TimePicker);
+  },
 };
-
-export default Datetimer;

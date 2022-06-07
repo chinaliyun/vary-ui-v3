@@ -1,8 +1,8 @@
 <template>
-  <div ref="v_dater" class="v_dater" @click="openPicker">
+  <div ref="v_dater" class="v_dater">
     <div class="_v_dater_container">
       <!-- 控制按钮使用所有场景, 按钮功能根据场景设置 -->
-      <div flex middle class="control_row" @click.stop="">
+      <div flex middle class="control_row">
         <div class="prev_year point_hover" @click="prevYear">
           <IconYear class="icon" />
         </div>
@@ -14,8 +14,17 @@
           <IconMonth class="icon" />
         </div>
         <div grow flex center class="current">
-          <div @click="changePicker(1)">{{ tmpYear }}年</div>
-          <div @click="changePicker(2)">{{ tmpMonth }}月</div>
+          <div v-if="pickerType > 1" @click="changePicker(1)">
+            <span>{{ tmpYear }}</span
+            >年
+          </div>
+          <div v-if="pickerType > 2" @click="changePicker(2)">
+            <span>{{ tmpMonth }}</span
+            >月
+          </div>
+          <div v-if="pickerType === 1">
+            {{ yearDict[0].value }}~{{ yearDict.slice(-1)[0].value }}
+          </div>
         </div>
         <div
           v-show="pickerType === 3"
@@ -28,6 +37,7 @@
           <IconYear class="icon" />
         </div>
       </div>
+
       <div v-if="pickerType === 1" class="year_list">
         <div flex class="year_row" fill wrap>
           <div
@@ -37,8 +47,19 @@
             center
             middle
             class="year_item"
-            :class="{ gray: item.gray, selected: item.value === tmpYear }"
-            @click="selectYear(item, $event)"
+            :class="{
+              normal: true,
+              gray: item.gray,
+              selected: rangeValue.includes(item.value),
+              range_begin: rangeValue[0] === item.value,
+              range_end: rangeValue[1] === item.value,
+              in_range:
+                validRange &&
+                item.value >= rangeValue[0] &&
+                item.value <= rangeValue[1],
+            }"
+            @mouseenter="selectYear(item, $event)"
+            @click="selectYear(item, $event, true)"
           >
             <div flex center middle class="text">
               {{ item.value }}
@@ -46,6 +67,7 @@
           </div>
         </div>
       </div>
+
       <div v-if="pickerType === 2" class="month_list">
         <div flex class="month_row" fill wrap>
           <div
@@ -54,12 +76,20 @@
             flex
             center
             middle
-            class="month_item"
+            class="month_item normal"
             :class="{
+              normal: true,
               gray: item.gray,
-              selected: item.value === tmpMonth && tmpYear === todayYear,
+              selected: rangeValue.includes(item.value),
+              range_begin: rangeValue[0] === item.value,
+              range_end: rangeValue[1] === item.value,
+              in_range:
+                validRange &&
+                item.value >= rangeValue[0] &&
+                item.value <= rangeValue[1],
             }"
-            @click="selectMonth(item, $event)"
+            @mouseenter="selectMonth(item, $event)"
+            @click="selectMonth(item, $event, true)"
           >
             <div flex center middle class="text">
               {{ item.text }}
@@ -67,6 +97,7 @@
           </div>
         </div>
       </div>
+
       <div v-if="pickerType === 3" class="date_list">
         <div flex class="week_row" fill>
           <div
@@ -76,7 +107,7 @@
             flex
             center
             middle
-            class="week_item"
+            class="week_item normal"
           >
             {{ item }}
           </div>
@@ -91,12 +122,19 @@
             class="date_item"
             :v="item.value"
             :class="{
-              gray: item.gray,
-              selected: item.value === showValue,
+              normal: item.normal,
+              selected: rangeValue.includes(item.value),
+              range_begin: rangeValue[0] === item.value,
+              range_end: rangeValue[1] === item.value,
               today: todayDate == item.value,
               disabled: item.disabled,
+              in_range:
+                validRange &&
+                item.value >= rangeValue[0] &&
+                item.value <= rangeValue[1],
             }"
-            @click="selectDate(item, $event)"
+            @mouseenter="selectDate(item, $event)"
+            @click="selectDate(item, $event, true)"
           >
             <div flex center middle class="text">
               {{ item.text }}
@@ -105,8 +143,6 @@
         </div>
       </div>
     </div>
-    <!-- 是否显示时间选择器, 要看format是否包含指定hh字符 -->
-    <var-timer v-if="format.includes('hh')"></var-timer>
   </div>
 </template>
 
@@ -133,19 +169,27 @@ export default {
       default: "",
     },
 
-    pickerOptions: {
-      type: Object,
-      default: () => ({}),
-    },
     value: {
       type: String,
       default: "",
     },
+    mode: {
+      type: Number,
+      default: "",
+    },
+    visible: {
+      type: Boolean,
+      default: "",
+    },
+    rangeValue: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
   },
-  inject: ["format", "beginDate", "endDate"],
   data() {
     return {
-      mode: 3,
       tmpYear: "",
       tmpMonth: "",
       tmpDate: "",
@@ -159,34 +203,79 @@ export default {
       todayDate: "",
     };
   },
-  created() {
-    this.init();
+  inject: ["format", "range", "begin", "end"],
+  created() {},
+  computed: {
+    validRange() {
+      return this.rangeValue[0] && this.rangeValue[1];
+    },
+    tmpValue() {
+      return moment(this.tmpYear + "-" + this.tmpMonth + "-" + this.tmpDate);
+    },
+  },
+  watch: {
+    visible(v) {
+      if (v) {
+        const today = moment();
+        this.todayYear = today.format("YYYY");
+        this.todayMonth = today.format("MM");
+        this.todayDate = today.format("YYYY-MM-DD");
+        this.init();
+      }
+    },
   },
   mounted() {},
   methods: {
+    initTemp(v, mode) {
+      console.log("initTemp", v);
+      this.tmpYear = v.format("YYYY") + ""; // 年份
+      this.tmpMonth = v.format("MM"); // 月份
+      this.tmpDate = v.format("DD"); // 日期
+      if (mode) {
+        mode === 1 && this.initYear();
+        mode === 2 && this.initMonth();
+        mode === 3 && this.initDates();
+      }
+    },
     init() {
-      const today = moment();
-      this.todayYear = today.format("YYYY");
-      this.todayMonth = today.format("MM");
-      this.todayDate = today.format("YYYY-MM-DD");
-      const now = moment(this.value);
-      this.tmpYear = now.format("YYYY") + ""; // 年份
-      this.tmpMonth = now.format("MM"); // 月份
-      this.tmpDate = now.format("DD"); // 日期
-
       // 判断应该显示哪个列表
-      if (this.format.includes("dd")) {
-        this.pickerType = 3;
-        this.initDates();
-      } else if (this.format.includes("mm")) {
+      console.log("init mode", this.mode);
+      if (this.mode === 1) {
+        this.pickerType = 1;
+        this.initYear();
+      } else if (this.mode === 2) {
         this.pickerType = 2;
         this.initMonth();
       } else {
-        this.pickerType = 1;
-        this.initYear();
+        this.pickerType = 3;
+        this.initDates();
       }
-
-      this.mapShowValue();
+    },
+    prevYear() {
+      if (this.pickerType === 1) {
+        this.initTemp(this.tmpValue.subtract(20, "years"));
+        this.initYear();
+      } else {
+        this.initTemp(this.tmpValue.subtract(1, "years"));
+        this.initMonth();
+      }
+    },
+    nextYear() {
+      if (this.pickerType === 1) {
+        this.initTemp(this.tmpValue.add(20, "years"));
+        this.initYear();
+      } else {
+        this.initTemp(this.tmpValue.add(1, "years"));
+        this.initMonth();
+      }
+    },
+    prevMonth() {
+      this.initTemp(moment(this.tmpValue).subtract(1, "month"));
+      this.initDates();
+    },
+    nextMonth() {
+      this.initTemp(moment(this.tmpValue).add(1, "month"));
+      this.initDates();
     },
     changePicker(v) {
       this.pickerType = v;
@@ -195,7 +284,7 @@ export default {
           this.initYear();
           break;
         case 2:
-          this.initMonth();
+          this.mode > 2 && this.initMonth();
           break;
         case 3:
           this.initDates();
@@ -213,53 +302,124 @@ export default {
       }
       this.yearDict = list;
     },
-    selectYear(item, e) {
-      // 选择年份
-      // 如果只是选择到年, 直接关闭, 如果选择到其他, 要组织冒泡
-      this.tmpYear = item.value;
-      if (this.mode > 1) {
-        this.changePicker(2);
-        e.stopPropagation();
+    selectDate(item, e, commit = false) {
+      console.log("selectDate", item.value, commit);
+      if (!commit && !this.range) {
+        return;
       }
+      this.$emit("select-date", item.value, commit);
+      this.commit && this.initDates();
+    },
+    selectYear(item, e, commit = false) {
+      console.log("selectYear", item.value, commit);
+      if (this.mode > 1 && commit) {
+        this.tmpYear = item.value;
+        this.pickerType = 2;
+        this.initMonth();
+      }
+      this.$emit("select-year", item.value, commit);
+    },
+
+    selectMonth(item, e, commit = false) {
+      console.log("selectMonth", item.value, commit);
+
+      /*
+      只要用户想选择到日, 都不需要触发emit
+      */
+      if (this.mode > 2 && commit) {
+        this.pickerType = 3;
+        this.tmpMonth = item.month;
+        this.initDates();
+      }
+      // 不管是click还是hover都要向上触发, click
+      this.$emit("select-month", item.value, commit);
     },
 
     initMonth() {
+      console.log("initMOnth");
       // 计算要显示的月份
       this.monthDict = [
-        { text: "一月", value: "01" },
-        { text: "二月", value: "02" },
-        { text: "三月", value: "03" },
-        { text: "四月", value: "04" },
-        { text: "五月", value: "05" },
-        { text: "六月", value: "06" },
-        { text: "七月", value: "07" },
-        { text: "八月", value: "08" },
-        { text: "九月", value: "09" },
-        { text: "十月", value: "10" },
-        { text: "十一月", value: "11" },
-        { text: "十二月", value: "12" },
+        {
+          text: "一月",
+          value: this.tmpYear + "-01",
+          year: this.tmpYear,
+          month: "01",
+        },
+        {
+          text: "二月",
+          value: this.tmpYear + "-02",
+          year: this.tmpYear,
+          month: "02",
+        },
+        {
+          text: "三月",
+          value: this.tmpYear + "-03",
+          year: this.tmpYear,
+          month: "03",
+        },
+        {
+          text: "四月",
+          value: this.tmpYear + "-04",
+          year: this.tmpYear,
+          month: "04",
+        },
+        {
+          text: "五月",
+          value: this.tmpYear + "-05",
+          year: this.tmpYear,
+          month: "05",
+        },
+        {
+          text: "六月",
+          value: this.tmpYear + "-06",
+          year: this.tmpYear,
+          month: "06",
+        },
+        {
+          text: "七月",
+          value: this.tmpYear + "-07",
+          year: this.tmpYear,
+          month: "07",
+        },
+        {
+          text: "八月",
+          value: this.tmpYear + "-08",
+          year: this.tmpYear,
+          month: "08",
+        },
+        {
+          text: "九月",
+          value: this.tmpYear + "-09",
+          year: this.tmpYear,
+          month: "09",
+        },
+        {
+          text: "十月",
+          value: this.tmpYear + "-10",
+          year: this.tmpYear,
+          month: "11",
+        },
+        {
+          text: "十一月",
+          value: this.tmpYear + "-11",
+          year: this.tmpYear,
+          month: "11",
+        },
+        {
+          text: "十二月",
+          value: this.tmpYear + "-12",
+          year: this.tmpYear,
+          month: "12",
+        },
       ];
-    },
-    selectMonth(item, e) {
-      // 选择月份
-      // 如果只是选择到月, 直接关闭选择器, 如果选择到日, 只需要切换pickerType
-      this.tmpMonth = item.value;
-      if (this.mode > 2) {
-        this.changePicker(3);
-        e.stopPropagation();
-      }
     },
 
     initDates() {
       // 计算要显示的日期
       console.log("initDates");
-      const date = moment();
 
       // 获取本月1号是周几
-      const firstDate = date
-        .set("year", parseInt(this.tmpYear, 10))
-        .set("month", parseInt(this.tmpMonth, 10) - 1)
-        .set("date", 1);
+      const firstDate = this.tmpValue.set("date", 1);
 
       // 获取1号对应的是周几
       const firstWeek = firstDate.weekday();
@@ -269,154 +429,27 @@ export default {
         firstDate.toDate().getTime() - firstWeek * 24 * 60 * 60 * 1000;
 
       const dateList = [];
+      const d = new Date();
       for (let i = 0; i < 42; i++) {
-        const d = new Date();
         d.setTime(firstDateTimeStamp);
         const value = moment(d).format("YYYY-MM-DD"); // 对比已选中日期, 添加样式
-        const text = moment(d).format("D") + ""; // 不带0
+        const text = moment(d).format("D") + ""; // 不带0, 展示用
         dateList.push({
-          gray: parseInt(d.getMonth(), 10) + 1 !== parseInt(this.tmpMonth),
-          value,
+          normal: parseInt(d.getMonth(), 10) + 1 === parseInt(this.tmpMonth),
           text,
-          disabled: this.pickerOptions.disabledDate
-            ? this.pickerOptions.disabledDate(new Date(value))
-            : false,
+          value,
         });
         firstDateTimeStamp += 24 * 60 * 60 * 1000;
       }
-      console.log("initDates", dateList);
+      console.log("initDates");
       this.dateDict = dateList;
-    },
-
-    selectDate(item, e) {
-      if (item.disabled) {
-        e.stopPropagation();
-        return;
-      }
-
-      // 选择日期
-      this.tmpDate = item.value.slice(-2);
-      this.tmpMonth = item.value.slice(5, 7);
-      this.tmpYear = item.value.slice(0, 4);
-      this.$emit("change", item.value);
-
-      this.showValue = item.value;
-      this.$emit("update:value", item.value);
-      e.stopPropagation();
-    },
-    mapShowValue() {
-      const { mode, tmpYear, tmpMonth, tmpDate } = this;
-      let str = "";
-      str = `${tmpYear}`;
-      if (mode >= 2) {
-        str += `-${tmpMonth}`;
-      }
-      if (mode >= 3) {
-        str += `-${tmpDate}`;
-      }
-      this.showValue = str;
-    },
-    nextMonth() {
-      console.log("nextMonth");
-      if (parseInt(this.tmpMonth, 10) === 12) {
-        this.tmpMonth = zero(1);
-        this.tmpYear++;
-      } else {
-        this.tmpMonth = zero(++this.tmpMonth);
-      }
-      this.initDates();
-    },
-    prevMonth() {
-      if (parseInt(this.tmpMonth) === 1) {
-        this.tmpMonth = 12;
-        this.tmpYear--;
-      } else {
-        this.tmpMonth = zero(--this.tmpMonth);
-      }
-      this.initDates();
-    },
-    nextYear() {
-      if (this.tmpYear < 3000) {
-        this.tmpYear++;
-        this.initDates();
-      }
-    },
-    prevYear() {
-      if (this.pickerType === 1) {
-        // 年份选择, 一次切换20个
-        this.tmpYear -= 20;
-      } else {
-        // 非年份选择,年份减一
-        this.tmpYear--;
-      }
-      this.initDates();
-    },
-    clearValue() {
-      this.showValue = "";
-      this.$emit("change", "");
-    },
-    submitValue() {
-      this.$emit("change", this.showValue);
-    },
-    closePicker() {
-      this.listVisible = false;
-    },
-    openPicker() {
-      // mode: year month date time datetime
-      // year 1 直接显示年份选择器
-      // month 2 显示月份选择器
-      // date 3 显示日期选择器
-      // time 4 显示时间选择器
-      // datetime 5 日期时间选择器
-
-      // if (this.date || this.datetime) {
-      this.mode = "3";
-      this.changePicker(3);
-      // return;
-      // }
-      if (this.month) {
-        this.mode = "2";
-        this.changePicker(2);
-        return;
-      }
-      if (this.year) {
-        this.mode = "1";
-        this.changePicker(1);
-        return;
-      }
-      // 打开下拉窗口
-      if (!this.listVisible) {
-        setTimeout(() => {
-          window.addEventListener("click", this.closePicker, {
-            once: true,
-          });
-        }, 200);
-
-        this.listVisible = true;
-        // const ele = this.$refs.v_datetime_picker.getBoundingClientRect();
-        // if (window.innerHeight - (ele.top + ele.height) > 200) {
-        //   // 如果距离可视区域底部大于200px, 显示在输入框上方
-        //   this.alignBottom = false;
-        // } else {
-        //   // 如果距离可视区域底部大于200px, 显示在输入框下方
-        //   this.alignBottom = true;
-        // }
-        // if (window.innerWidth - (ele.left + ele.width) > 200) {
-        //   // 如果距离可视区域右侧大于200px, 左对齐
-        //   this.alignRight = false;
-        // } else {
-        //   // 如果距离可视区域右侧大于200px, 右对齐
-        //   this.alignRight = true;
-        // }
-      } else {
-        this.listVisible = false;
-      }
     },
   },
 };
 </script>
 <style lang="scss" >
 .v_dater {
+  width: 300px;
   .control_row {
     height: 40px;
     padding: 0 14px;
@@ -432,105 +465,87 @@ export default {
     flex-wrap: wrap;
     color: rgb(53, 53, 53);
   }
-  .year_item,
-  .month_item,
-  .week_item,
-  .date_item {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: lighter;
+  .year_item {
+    width: 20%;
+    height: 34px;
+    margin: 13px 0;
     .text {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 50px;
+      height: 26px;
     }
-    &.today {
-      color: $main-color;
-      font-weight: bold;
+  }
+
+  .month_item {
+    width: 25%;
+    height: 34px;
+    margin: 23px 0;
+    .text {
+      width: 60px;
+      height: 26px;
     }
   }
   .week_item,
   .date_item {
     width: 14.22222%;
     height: 34px;
+    margin: 2px 0;
     .text {
       width: 26px;
       height: 26px;
+    }
+  }
+  .year_item,
+  .month_item,
+  .week_item,
+  .date_item {
+    color: rgb(219, 219, 219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .text {
       border-radius: 20px;
       transition: all 0.2s linear;
-      &:hover {
-        background-color: $picker-background-color;
-      }
-    }
-    &.gray {
-      color: rgb(219, 219, 219);
-    }
-    &.selected {
-      .text {
-        background-color: $main-color;
-        color: white;
-      }
-    }
-  }
-  .week_item {
-    font-weight: bold;
-  }
-  .date_item {
-    cursor: pointer;
-    &:hover {
-      color: $main-color;
-    }
-  }
-  .date_item.disabled,
-  .date_item.disabled div {
-    background-color: #f5f7fa;
-    cursor: not-allowed;
-    color: #c0c4cc;
-  }
-  .year_item {
-    width: 20%;
-    height: 60px;
-    cursor: pointer;
-    color: rgb(83, 83, 83);
-    .text {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 6px;
-      border-radius: 100px;
+      font-size: 12px;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(238, 238, 238, 0.62);
+      }
     }
-    &.selected {
-      .text {
-        background-color: $main-color;
-        color: white;
+    &.normal {
+      color: $font-color;
+      &.selected {
+        .text {
+          background: lighten($main-color, 30%);
+        }
+      }
+      &.range_begin {
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 100px;
+      }
+
+      &.range_end {
+        border-top-right-radius: 100px;
+        border-bottom-right-radius: 100px;
+      }
+      &.in_range {
+        background-color: lighten($main-color, 40%);
+        color: $font-color;
       }
     }
   }
-  .month_item {
-    width: 25%;
-    height: 80px;
-    cursor: pointer;
-    font-weight: normal;
-    .text {
-      padding: 6px;
-      border-radius: 100px;
-    }
-    &.selected {
-      .text {
-        background-color: $main-color;
-        color: white;
-      }
-    }
-  }
+
   .current {
     font-size: 16px;
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    span {
+      border-bottom: 1px dashed $border-color;
+      cursor: pointer;
+    }
   }
   .svg,
   .svg_hover {
@@ -560,17 +575,6 @@ export default {
         fill: red;
       }
     }
-    // .svg_hover {
-    //   display: none;
-    // }
-    // &:hover {
-    //   .svg {
-    //     display: none;
-    //   }
-    //   .svg_hover {
-    //     display: block;
-    //   }
-    // }
   }
 
   .prev_year,

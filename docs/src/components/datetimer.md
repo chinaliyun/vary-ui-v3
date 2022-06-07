@@ -8,4 +8,4 @@ pageClass: custom-page-class
 
 <Dater-Base/>
 
-<!-- @[code](../.vuepress/components/Dater/Base.vue -->)
+<!-- @[code](../.vuepress/components/Dater/Base.vue -->

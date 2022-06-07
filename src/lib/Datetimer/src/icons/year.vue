@@ -15,3 +15,8 @@
     ></path>
   </svg>
 </template>
+<script>
+export default {
+  name: "IconYear",
+};
+</script>
