@@ -1,68 +1,87 @@
 <template>
-  <div class="v_tree">
-    <!-- <div v-for="row in data" :key="row[]">
-      <TreeItem :data="row" v-bind="$attrs" />
-    </div> -->
+  <div class="comp_root_tree">
+    <adm-scene v-if="tree" class="tree_list">
+      <adm-tree-node
+        v-for="(node, idx) in tree.list"
+        :key="idx"
+        :node="node"
+        :render-index="tree.renderIndex"
+        @nodeClick="handleNodeClick"
+      />
+    </adm-scene>
   </div>
 </template>
 
 <script>
-// import TreeItem from './TreeItem';
-
+import admTreeNode from "./TreeNode.vue";
+import treeService from "./treeService";
 export default {
   name: "VarTree",
   components: {
-    // TreeItem,
+    admTreeNode,
   },
   props: {
-    data: {
+    list: {
       type: Array,
-      default() {
-        return [];
-      },
+      default: () => [],
     },
+    props: {
+      type: Object,
+      default: () => ({}),
+    },
+    filterNodeMethod: Function,
   },
   data() {
-    return {};
+    return {
+      tree: null,
+    };
   },
-  mounted() {
-    this.init();
+  watch: {
+    list(val) {
+      this.tree.setData("list", val);
+    },
+    props(val) {
+      for (let i in val) {
+        this.tree.setData(i, val[i]);
+      }
+    },
+  },
+  created() {
+    this.initTree();
   },
   methods: {
-    init() {},
+    // 创建tree实例，传入动态参数
+    initTree() {
+      this.tree = new treeService({
+        list: this.list,
+        filterNodeMethod: this.filterNodeMethod,
+        props: this.props,
+      });
+
+      // 初始化
+      this.tree.init();
+    },
+    /**
+     * 类型切换
+     * @param {*}
+     * @returns
+     */
+    async changeList(i, idx) {
+      this.tree.nowIndex = i;
+      this.tree.setListData(idx);
+    },
+    filter(key) {
+      this.tree.filter(key);
+    },
+    handleNodeClick(data) {
+      this.$emit("nodeClick", data);
+    },
   },
 };
 </script>
 
-<style lang="scss" >
-.v_tree {
-  .tab_bar {
-    &.border {
-      border-bottom: 1px solid $border-color;
-    }
-    &.background {
-      background-color: #f9f9f9;
-      border: 1px solid #e2e2e2;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-    }
-  }
-  .tab_item {
-    height: 38px;
-    // width: 162px;
-    padding: 0 20px;
-    cursor: pointer;
-    text-align: center;
-    .tab_text {
-      border-bottom: 1px solid transparent;
-      transition: all 0.2s linear;
-    }
-    &.active {
-      color: $main-color;
-      .tab_text {
-        border-color: $main-color;
-      }
-    }
-  }
+<style lang="scss" scoped>
+.tree_list {
+  width: 100%;
 }
 </style>

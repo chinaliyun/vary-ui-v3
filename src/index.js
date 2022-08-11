@@ -22,6 +22,7 @@ import Table from "./lib/Table";
 import Tabs from "./lib/Tabs";
 import Textarea from "./lib/Textarea";
 import Upload from "./lib/Upload";
+import Tree from "./lib/Tree";
 // import Loading from "./lib/Loading";
 
 let components = [
@@ -49,6 +50,7 @@ let components = [
   Tabs,
   Textarea,
   Upload,
+  Tree,
   //   Loading,
 ];
 

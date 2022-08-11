@@ -3,7 +3,7 @@
     <div
       class="switch_core"
       :style="style"
-      :class="[{ active: value }, { disabled }]"
+      :class="[{ active: modelValue }, { disabled }]"
       @click="change"
     ></div>
   </div>
@@ -12,19 +12,15 @@
 <script>
 export default {
   name: "VarSwitch",
-  model: {
-    prop: "value",
-    event: "change",
-  },
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
     // 背景色
     activeColor: {
       type: String,
-      default: "rgb(19, 206, 102)",
+      default: "#13ce66",
     },
     // 是否禁用
     disabled: {
@@ -40,11 +36,11 @@ export default {
   data() {
     return {
       style: null,
-      defaultColor: "rgb(220, 223, 230)",
+      defaultColor: "#dcdfe6",
     };
   },
   watch: {
-    value: {
+    modelValue: {
       handler(val) {
         this.style = {
           ...this.style,
@@ -63,7 +59,7 @@ export default {
       if (this.disabled) {
         return;
       }
-      this.$emit("change", !this.value);
+      this.$emit("update:modelValue", !this.modelValue);
     },
   },
 };
@@ -82,11 +78,10 @@ export default {
     margin: 0px;
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(220, 223, 230);
     border-image: initial;
     outline: none;
     border-radius: 10px;
-    background: rgb(220, 223, 230);
+    background: #dcdfe6;
     transition: border-color 0.3s ease 0s, background-color 0.3s ease 0s;
 
     &.disabled {

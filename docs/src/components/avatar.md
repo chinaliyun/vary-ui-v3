@@ -1,4 +1,4 @@
----
+<!-- ---
 pageClass: custom-page-class
 ---
 
@@ -29,4 +29,4 @@ pageClass: custom-page-class
 | src     | null   | 头像地址                                                                      |
 | default | null   | 默认头像地址, 如果 src 加载失败, 且 default 有值的情况下, 会加载 default 头像 |
 | size    | 80px   | 定义头像的尺寸,                                                               |
-| alt     | null   | 同 `img`元素的`alt`属性                                                       |
+| alt     | null   | 同 `img`元素的`alt`属性                                                       | -->

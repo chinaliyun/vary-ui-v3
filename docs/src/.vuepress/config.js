@@ -71,12 +71,13 @@ module.exports = {
             "radio",
             "textarea",
             "datetimer",
+            "switch",
             "upload",
           ],
         },
         {
           text: "组件库",
-          children: ["avatar", "button", "link", "card", "preview"],
+          children: ["avatar", "button", "link", "card", "preview", "tree"],
         },
         {
           text: "弹出窗",
