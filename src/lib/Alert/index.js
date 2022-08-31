@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import Alert from "./src/Alert";
+import Alert from "./src/Alert.vue";
 
 const createComponent = function (type, options) {
   // 防止用户传入其他参数

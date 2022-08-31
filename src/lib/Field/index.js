@@ -1,4 +1,4 @@
-import Field from "./src/Field";
+import Field from "./src/Field.vue";
 
 /* istanbul ignore next */
 Field.install = function (app) {

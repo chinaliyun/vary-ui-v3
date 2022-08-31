@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import Message from "./src/Message";
+import Message from "./src/Message.vue";
 
 let instanceMap = [];
 const createComponent = function (type, msg) {

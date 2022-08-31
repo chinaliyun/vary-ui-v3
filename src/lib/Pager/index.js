@@ -1,4 +1,4 @@
-import Pager from "./src/Pager";
+import Pager from "./src/Pager.vue";
 
 /* istanbul ignore next */
 Pager.install = function (app) {

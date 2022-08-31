@@ -1,4 +1,4 @@
-import Steps from "./src/Steps";
+import Steps from "./src/Steps.vue";
 
 /* istanbul ignore next */
 Steps.install = function (app) {

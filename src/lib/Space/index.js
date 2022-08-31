@@ -1,4 +1,4 @@
-import Space from "./src/Space";
+import Space from "./src/Space.vue";
 
 /* istanbul ignore next */
 Space.install = function (app) {

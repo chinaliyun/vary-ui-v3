@@ -1,4 +1,4 @@
-import Scene from "./src/Scene";
+import Scene from "./src/Scene.vue";
 
 /* istanbul ignore next */
 Scene.install = function (app) {

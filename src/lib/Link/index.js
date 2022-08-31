@@ -1,4 +1,4 @@
-import Link from "./src/Link";
+import Link from "./src/Link.vue";
 
 /* istanbul ignore next */
 Link.install = function (app) {

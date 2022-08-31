@@ -1,4 +1,4 @@
-import Card from "./src/Card";
+import Card from "./src/Card.vue";
 
 /* istanbul ignore next */
 Card.install = function (app) {

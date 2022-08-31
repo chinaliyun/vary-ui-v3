@@ -1,117 +1,18 @@
-<!--
-
-dater作为日期选择器, 没有自己的边框, 必须放在datepicker中使用
-  beginDate
-  endDate
-  beginValue
-  endValue
-  range
-
-timer作为时间选择器, 没有自己的边框, 必须放在timepicker中使用
-
-输入框要放在datepicker和timepicker以及datetimepicker中
-
-datepicker要支持选择两个日期,所以可能内嵌两个dater, 且
-  组件内只考虑日期, 不考虑时间因素, 所以要对传入值做一些修改
-
-  range  定义是否显示两个dater
-  begin 
-  end
-  beginValue  要绑定到dater上
-  endValue    绑定到dater上
-  @change 被触发时, 还要同步到父组件中
-
-timepicker要支持选择两个时间, 所以可能内嵌两个timer
-  range  定义是否显示两个timer
-  beginDate 
-  endDate
-  beginValue  要绑定到timer上
-  endValue    绑定到timer上
-  @change 被触发时, 还要同步到父组件中
-
-datetimepicker 要支持选择两个日期时间, 所以可能内嵌两组dater/timer
-  format 仅用来格式化用户选择的日期, 直接通过format来处理
-  value  如果value的值通过moment与用户format属性的格式处理后与原始value不一致, 直接警告
-  range  是否显示两组选择器
-  beginDate
-  endDate
-
-
-<datepicker>
-  <dater> 
-    <input />
-    <dialog/>
-  </dater>
-</datepicker>
-
-<timepicker>
-  <timer>
-    <input />
-    <dialog/>
-  </timer>
-</timepicker>
-
-<datetimepicker>
-  <div>
-    <dater/>
-    <timer/>
-  </div>
-  <div>
-    <dater/>
-    <timer/>
-  </div>
-</datetimepicker>
-
-验证列表:
-single:
-
-range:
-  在第一个窗口:
-    点击下一个月按钮时,如果第二个窗口月份即将相同, 月份+1
-    点击上一个月按钮时, 只更新第一个窗口的月份
-    点击上一年按钮时, 两个窗口同时年份-1
-    点击下一年按钮时, 两个窗口同时年份+1
-
-  在第二个窗口:
-    点击上一个月按钮时, 如果第一个窗口月份即将相同, 月份-1
-    点击下一个月按钮时, 只更新第二个窗口的月份
-    点击上一年按钮时, 两个窗口同时年份-1
-    点击下一年按钮时, 两个窗口同时年份+1
-  
-  首次选择日期:
-    第一个窗口月份更新为所选值的月份
-    第二个窗口:
-      如果小于等于第一个窗口月份, 设为第一个窗口的下一个月份
-
-      
-  二次选择日期:
-    选最早值作为开始日期, 另一个作为结束日期
-    更新第一个窗口到开始日期所在月份
-    更新第二个窗口到结束日期所在月份
-      如果结束日期与开始日期同月:更新第二个窗口到开始日期下一个月份
-      如果结束日期与开始日期不同月:更新第二个窗口到结束日期所在月份
-  
-
-  
-  
-
-
--->
 <template>
-  <div class="v_datetimer">
+  <div class="v_date_picker">
     <var-scene
       flex
       middle
-      class="v_datetimer_input"
+      class="v_date_picker_input"
       @click="openDialog($event)"
     >
       <div class="range_begin">{{ showBeginValue }}</div>
       <div v-if="ready && range">至</div>
       <div v-if="ready && range" class="range_end">{{ showEndValue }}</div>
     </var-scene>
-    <div class="v_datetimer_dialog" :class="{ show: visible }" @click.stop="">
+    <div class="v_date_picker_dialog" :class="{ show: visible }" @click.stop="">
       <div class="arrow_top"></div>
-      <var-scene class="v_datetimer_dialog_outer">
+      <var-scene class="v_date_picker_dialog_outer">
         <var-scene flex>
           <Dater
             ref="d1"
@@ -165,6 +66,10 @@ const _YEAR = "YYYY";
 let d1 = null,
   d2 = null;
 let point = 0;
+
+function isDate(v) {
+  return new Date(v).toString() !== "Invalid Date";
+}
 export default {
   name: "VarDatePicker",
   components: {
@@ -227,8 +132,10 @@ export default {
   mounted() {
     d1 = this.$refs.d1;
     d2 = this.$refs.d2;
-    console.log(d1, d2);
+    console.log(this.modelValue[0]);
+    console.log(isDate(this.modelValue[0]));
     this.init();
+    // console.log(moment.isDate(this.modelValue[1]));
   },
   provide() {
     return {
@@ -241,11 +148,17 @@ export default {
     };
   },
   watch: {
-    // visible(v) {
-    //   if (!v) {
-    //     point = 0;
-    //   }
-    // },
+    modelValue(v) {
+      if (this.range) {
+        if (v[0] !== this.showBeginValue || v[1] !== this.showEndValue) {
+          this.init();
+        }
+      } else {
+        if (v !== this.showBeginValue) {
+          this.init();
+        }
+      }
+    },
   },
   methods: {
     closeDialog() {
@@ -264,28 +177,19 @@ export default {
     },
     valide() {
       try {
-        // 先检查value与format的一致性
-        // if (this.begin && !moment.isDate(new Date(this.begin))) {
-        //   throw new Error("format 与 begin 格式不一致");
-        // }
-        // if (this.end && !moment.isDate(new Date(this.end))) {
-        //   throw new Error("format 与 end 格式不一致");
-        // }
         if (this.range) {
           if (!Array.isArray(this.modelValue)) {
             throw new Error("range为true时, value必须为数组格式");
           }
-          if (
-            this.modelValue[0] &&
-            !moment.isDate(new Date(this.modelValue[0]))
-          ) {
-            throw new Error(`value[0] [${value[0]}]不是有效的时间格式`);
+          if (this.modelValue[0] && !isDate(this.modelValue[0])) {
+            throw new Error(
+              `value[0] [${this.modelValue[0]}]不是有效的时间格式`
+            );
           }
-          if (
-            this.modelValue[0] &&
-            !moment.isDate(new Date(this.modelValue[0]))
-          ) {
-            throw new Error(`value[1] [${value[1]}]不是有效的时间格式`);
+          if (this.modelValue[0] && !isDate(this.modelValue[0])) {
+            throw new Error(
+              `value[1] [${this.modelValue[1]}]不是有效的时间格式`
+            );
           }
           // 开始时间不能晚于结束时间
           if (
@@ -297,24 +201,39 @@ export default {
               `结束时间[${this.modelValue[1]}]必须大于开始时间[${this.modelValue[0]}]`
             );
           }
-        }
-
-        if (this.modelValue && !moment.isDate(new Date(this.modelValue))) {
-          throw new Error("format 与 value格式不一致");
+        } else {
+          if (this.modelValue && !isDate(this.modelValue)) {
+            throw new Error(`value ${this.modelValue} 不是有效的日期`);
+          }
         }
       } catch (e) {
-        throw new Error(e);
+        if (this.range) {
+          console.log("reset");
+          this.$emit("update:modelValue", [
+            moment().format("YYYY-MM-DD"),
+            moment()
+              .add(1, this.year ? "years" : this.month ? "months" : "days")
+              .format("YYYY-MM-DD"),
+          ]);
+        } else {
+          this.$emit("update:modelValue", moment().format("YYYY-MM-DD"));
+        }
+        throw e;
       }
     },
     init() {
-      this.valide();
+      try {
+        this.valide();
+      } catch (error) {
+        console.log("init", "规则验证未通过, 等待下次初始化", error);
+        return;
+      }
       const { year, month } = this;
       this.mode = year ? 1 : month ? 2 : 3;
 
       const validFormat = year ? _YEAR : month ? _MONTH : _DATE;
 
       this.originBeginValue =
-        this.beginValue =
         this.showBeginValue =
         this.beginValue =
           moment(
@@ -609,9 +528,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.v_datetimer {
+.v_date_picker {
   position: relative;
-  .v_datetimer_input {
+  .v_date_picker_input {
     border: 1px solid $border-color2;
     border-radius: 4px;
     height: $input-height;
@@ -624,7 +543,7 @@ export default {
       text-align: center;
     }
   }
-  .v_datetimer_dialog {
+  .v_date_picker_dialog {
     display: none;
     position: absolute;
     left: 0;
@@ -680,7 +599,7 @@ export default {
       border-left: none;
       border-top: none;
     }
-    .v_datetimer_dialog_outer {
+    .v_date_picker_dialog_outer {
       border: 1px solid $border-color2;
       border-radius: 4px;
       background-color: white;

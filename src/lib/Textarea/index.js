@@ -1,4 +1,4 @@
-import Textarea from "./src/Textarea";
+import Textarea from "./src/Textarea.vue";
 
 /* istanbul ignore next */
 Textarea.install = function (app) {

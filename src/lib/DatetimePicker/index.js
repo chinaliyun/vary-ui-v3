@@ -1,4 +1,4 @@
-import DatetimePicker from "./src/DatetimePicker";
+import DatetimePicker from "./src/DatetimePicker.vue";
 
 /* istanbul ignore next */
 DatetimePicker.install = function (app) {

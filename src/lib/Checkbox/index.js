@@ -1,4 +1,4 @@
-import Checkbox from "./src/Checkbox";
+import Checkbox from "./src/Checkbox.vue";
 
 /* istanbul ignore next */
 Checkbox.install = function (app) {
