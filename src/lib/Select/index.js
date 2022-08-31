@@ -1,4 +1,4 @@
-import Select from "./src/Select";
+import Select from "./src/Select.vue";
 
 /* istanbul ignore next */
 Select.install = function (app) {

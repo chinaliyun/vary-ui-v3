@@ -1,6 +1,6 @@
-import DatetimePicker from "./src/DatetimePicker";
-import DatePicker from "./src/DatePicker";
-import TimePicker from "./src/TimePicker";
+import DatetimePicker from "./src/DatetimePicker.vue";
+import DatePicker from "./src/DatePicker.vue";
+import TimePicker from "./src/TimePicker.vue";
 
 export default {
   install: function (app) {

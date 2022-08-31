@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import Loading from "./src/Loading";
+import Loading from "./src/Loading.vue";
 
 let globalComponentInstance = null;
 

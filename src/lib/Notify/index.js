@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import Notify from "./src/Notify";
+import Notify from "./src/Notify.vue";
 
 let nextInstance = [];
 let instanceMap = [];

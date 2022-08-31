@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import Preview from "./src/Preview";
+import Preview from "./src/Preview.vue";
 
 const ExtendComponent = createApp(Preview);
 

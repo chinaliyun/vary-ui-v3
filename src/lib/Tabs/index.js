@@ -1,4 +1,4 @@
-import Tabs from "./src/Tabs";
+import Tabs from "./src/Tabs.vue";
 
 /* istanbul ignore next */
 Tabs.install = function (app) {
