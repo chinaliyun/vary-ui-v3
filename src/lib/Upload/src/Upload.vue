@@ -73,7 +73,7 @@ function upload(file) {
     }, 500 + Math.random() * 1000);
   });
 }
-import IconSuccess from "./icons/success";
+import IconSuccess from "./icons/success.vue";
 export default {
   name: "VarUpload",
   components: {

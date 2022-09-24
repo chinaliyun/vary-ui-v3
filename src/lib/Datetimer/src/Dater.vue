@@ -148,10 +148,10 @@
 
 <script>
 import moment from "moment";
-import IconYear from "./icons/year";
-import IconMonth from "./icons/month";
-import IconClear from "./icons/clear";
-import IconArrow from "./icons/arrow";
+import IconYear from "./icons/year.vue";
+import IconMonth from "./icons/month.vue";
+import IconClear from "./icons/clear.vue";
+import IconArrow from "./icons/arrow.vue";
 function zero(v) {
   return v < 10 ? "0" + v : v;
 }

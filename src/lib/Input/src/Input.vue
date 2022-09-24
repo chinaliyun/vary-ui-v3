@@ -64,7 +64,7 @@
 
 <script>
 import { debounce } from "../../../utils";
-import IconClear from "./icons/clear";
+import IconClear from "./icons/clear.vue";
 export default {
   name: "VarInput",
   components: {

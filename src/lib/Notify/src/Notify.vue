@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import IconClose from "./icons/close";
+import IconClose from "./icons/close.vue";
 export default {
   name: "VarNotify",
   components: {

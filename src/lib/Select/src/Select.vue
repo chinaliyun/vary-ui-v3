@@ -54,8 +54,8 @@
   </div>
 </template>
 <script>
-import IconClear from "./icons/clear";
-import IconArrow from "./icons/arrow";
+import IconClear from "./icons/clear.vue";
+import IconArrow from "./icons/arrow.vue";
 export default {
   name: "VarSelect",
   model: {
