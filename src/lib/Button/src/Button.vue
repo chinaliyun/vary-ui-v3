@@ -1,14 +1,10 @@
 <template>
-  <button
-    class="v_button"
-    :class="{ primary, warning, error, success, border, disabled }"
-    :style="bounding"
-    @click="trigger($event)"
-  >
-    <var-scene flex center middle>
+  <button class="v_button" :class="{ primary, warning, error, success, border, disabled }" :style="bounding"
+    @click="trigger($event)">
+    <div class="v_button_body">
       <slot name="prefix" />
       <slot />
-    </var-scene>
+    </div>
   </button>
 </template>
 
@@ -95,12 +91,15 @@ export default {
   color: $button-color;
   flex-shrink: 0;
   display: inline-block;
+
   &:hover {
     background-color: darken($button-background-color, 4%);
   }
+
   .prefix_icon {
     padding-right: 4px;
   }
+
   &.primary,
   &.warning,
   &.error,
@@ -108,75 +107,93 @@ export default {
     color: white;
     border: none;
   }
+
   &.primary {
     background-color: $button-primary-background-color;
     color: $button-primary-color;
+
     &:hover {
       background-color: darken($button-primary-background-color, 12%);
     }
   }
+
   &.warning {
     background-color: $button-warning-background-color;
     color: $button-warning-color;
+
     &:hover {
       background-color: darken($button-warning-background-color, 12%);
     }
   }
+
   &.error {
     background-color: $button-error-background-color;
     color: $button-error-color;
+
     &:hover {
       background-color: darken($button-error-background-color, 12%);
     }
   }
+
   &.success {
     background-color: $button-success-background-color;
     color: $button-success-color;
+
     &:hover {
       background-color: darken($button-success-color, 12%);
     }
   }
+
   &.border {
     background-color: white;
     border-color: $button-color;
     color: $button-color;
     border-width: 1px;
     border-style: solid;
+
     &:hover {
       background-color: $button-color;
       border-color: $button-color;
       color: white;
     }
+
     &.primary {
       border-color: $button-primary-background-color;
       color: $button-primary-background-color;
+
       &:hover {
         background-color: $button-primary-background-color;
         border-color: $button-primary-background-color;
         color: white;
       }
     }
+
     &.success {
       border-color: $button-success-background-color;
       color: $button-success-background-color;
+
       &:hover {
         background-color: $button-success-background-color;
         border-color: $button-success-background-color;
         color: white;
       }
     }
+
     &.error {
       border-color: $button-error-background-color;
       color: $button-error-background-color;
+
       &:hover {
         background-color: $button-error-background-color;
         border-color: $button-error-background-color;
         color: white;
       }
     }
+
     &.warning {
       border-color: $button-warning-background-color;
       color: $button-warning-background-color;
+
       &:hover {
         background-color: $button-warning-background-color;
         border-color: $button-warning-background-color;
@@ -184,13 +201,21 @@ export default {
       }
     }
   }
+
   &.disabled {
     cursor: not-allowed;
     background-color: $button-disabled-background-color;
     color: rgb(189, 189, 189);
+
     &:hover {
       background-color: $button-disabled-background-color;
     }
+  }
+
+  .v_button_body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

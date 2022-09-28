@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="v_link"
-    :class="{ primary, warning, error, success, disabled }"
-    @click.stop="clickTrigger"
-  >
-    <var-scene flex center middle>
+  <div class="v_link" :class="{ primary, warning, error, success, disabled }" @click.stop="clickTrigger">
+    <div class="v_link_body">
       <slot name="prefix" />
       <slot />
-    </var-scene>
+    </div>
   </div>
 </template>
 
@@ -87,48 +83,67 @@ export default {
   font-size: 14px;
   color: $link-color;
   flex-shrink: 0;
+
   &:hover {
     color: darken($link-color, 4%);
   }
+
   .prefix_icon {
     padding-right: 4px;
   }
+
   &.primary,
   &.warning,
   &.error,
   &.success {
     border: none;
   }
+
   &.primary {
     color: $link-primary-color;
+
     &:hover {
       color: darken($link-primary-color, 12%);
     }
   }
+
   &.warning {
     color: $link-warning-color;
+
     &:hover {
       color: darken($link-warning-color, 12%);
     }
   }
+
   &.error {
     color: $link-error-color;
+
     &:hover {
       color: darken($link-error-color, 12%);
     }
   }
+
   &.success {
     color: $link-success-color;
+
     &:hover {
       color: darken($link-success-color, 12%);
     }
   }
+
   &.disabled {
     cursor: not-allowed;
     color: $link-disabled-color;
+
     &:hover {
       color: $link-disabled-color;
     }
+  }
+
+  .v_link_body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

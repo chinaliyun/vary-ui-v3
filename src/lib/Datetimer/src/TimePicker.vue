@@ -5,44 +5,25 @@
       <div v-if="ready && range">至</div>
       <div v-if="ready && range" class="range_end">{{ showEndTime }}</div>
     </div>
-    <div
-      class="v_timer_picker_dialog"
-      :class="{ show: visible }"
-      @click.stop=""
-    >
+    <div class="v_timer_picker_dialog" :class="{ show: visible }" @click.stop="">
       <div class="arrow_top"></div>
       <div class="v_timer_picker_dialog_outer">
         <div class="v_timer_body">
-          <Timer
-            ref="t1"
-            :visible="visible"
-            :mode="mode"
-            :value="beginTime"
-            :rangeEnd="endTime"
-            :range-value="[beginTime, endTime]"
-            @change="(v) => change(1, v)"
-          />
+          <Timer ref="t1" :visible="visible" :mode="mode" :value="beginTime" :rangeEnd="endTime"
+            :range-value="[beginTime, endTime]" @change="(v) => change(1, v)" />
           <!-- <var-space w="10" class="line"></var-space> -->
-          <Timer
-            ref="t2"
-            :visible="visible"
-            v-if="range"
-            :mode="mode"
-            :value="endTime"
-            :rangeBegin="beginTime"
-            :range-value="[beginTime, endTime]"
-            @change="(v) => change(2, v)"
-          />
+          <Timer ref="t2" :visible="visible" v-if="range" :mode="mode" :value="endTime" :rangeBegin="beginTime"
+            :range-value="[beginTime, endTime]" @change="(v) => change(2, v)" />
         </div>
         <div class="v_timer_control">
           <div class="btn_confirm" @click="submit(1)">确定</div>
           <div class="btn_cancel" @click="submit(0)">取消</div>
         </div>
-        <!-- <var-scene flex center p="20" class="control_row">
+        <!-- <div p="20" class="control_row">
           <var-button primary @click="submit">确定</var-button>
           <var-space w="20"></var-space>
           <var-button @click="reset">重置</var-button>
-        </var-scene> -->
+        </div> -->
       </div>
     </div>
   </div>
@@ -159,7 +140,7 @@ export default {
     },
     valide() {
       try {
-      } catch (e) {}
+      } catch (e) { }
     },
     init() {
       this.mode = this.minutes ? 2 : 3;
@@ -213,9 +194,9 @@ export default {
       );
       this.openDialog();
     },
-    initHoursMode() {},
-    initMinutesMode() {},
-    initSecondsMode() {},
+    initHoursMode() { },
+    initMinutesMode() { },
+    initSecondsMode() { },
     change(n, v) {
       if (n === 1) {
         this.beginTime = v;
@@ -267,6 +248,7 @@ export default {
 <style lang="scss" scoped>
 .v_timer_picker {
   position: relative;
+
   .v_timer_picker_input {
     border: 1px solid $border-color2;
     border-radius: 4px;
@@ -274,6 +256,7 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: center;
+
     .range_begin,
     .range_end {
       flex-shrink: 0;
@@ -282,6 +265,7 @@ export default {
       text-align: center;
     }
   }
+
   .v_timer_picker_dialog {
     display: none;
     position: absolute;
@@ -290,6 +274,7 @@ export default {
     z-index: 10;
     padding: 10px 0;
     transform-origin: top;
+
     &.show {
       display: block;
       animation: show 0.08s linear;
@@ -300,16 +285,19 @@ export default {
       bottom: 40px;
       transform-origin: bottom;
     }
+
     @keyframes show {
       0% {
         opacity: 0;
         transform: scaleY(0.8);
       }
+
       100% {
         opacity: 1;
         transform: scaleY(1);
       }
     }
+
     .arrow_top {
       position: absolute;
       left: 20px;
@@ -324,6 +312,7 @@ export default {
       border-right: none;
       border-bottom: none;
     }
+
     .arrow_bottom {
       position: absolute;
       left: 20px;
@@ -338,21 +327,25 @@ export default {
       border-left: none;
       border-top: none;
     }
+
     .v_timer_picker_dialog_outer {
       border: 1px solid $border-color2;
       border-radius: 4px;
       background-color: white;
       box-shadow: 0 1px 10px rgb(231, 231, 231);
       padding-top: 6px;
+
       .v_timer_body {
         display: flex;
       }
+
       .v_timer_control {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px 0;
         font-size: 12px;
+
         .btn_confirm,
         .btn_cancel {
           padding: 0 8px;

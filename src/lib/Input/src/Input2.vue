@@ -15,7 +15,7 @@
           center: center,
           right: right,
           mini,
-        }" :value="modelValue" v-bind="$attrs" :autofocus="autofocus" :readonly="readonly" :disabled="disabled"
+        }" :value="realValue" v-bind="$attrs" :autofocus="autofocus" :readonly="readonly" :disabled="disabled"
           :maxlength="maxlength" @input="inputChange" @focus="onFocus" @blur="onBlur" @keyup.enter="enter" />
       </div>
       <div v-if="!disabled && !readonly && value !== '' && clearable" class="clearable" @click.stop="clearValue">
@@ -44,6 +44,10 @@ export default {
   components: {
     IconClear,
   },
+  // model: {
+  //   prop: "value",
+  //   event: "change",
+  // },
   props: {
     modelValue: {
       type: [Number, String],
@@ -123,19 +127,19 @@ export default {
     },
   },
   watch: {
-    // value(v, o) {
-    //   // console.log(v, o);
-    //   if (v !== this.realValue) {
-    //     this.init();
-    //   }
-    // },
+    value(v, o) {
+      // console.log(v, o);
+      if (v !== this.realValue) {
+        this.init();
+      }
+    },
     // data(v, o) {
     //   console.log('data', v, o);
     //   this.onFocus();
     // },
   },
   mounted() {
-    // this.init();
+    this.init();
   },
   methods: {
     enter: debounce(function (e) {
@@ -253,9 +257,105 @@ export default {
     },
     clearValue() {
       this.$emit("update:modelValue", "");
+      this.realValue = "";
+      this.$refs.input.value = "";
+      this.$refs.input.focus();
     },
     inputChange(e) {
+      this.$emit("input");
       this.$emit("update:modelValue", e.target.value);
+      return
+      // console.log(e.inputType, e.data, e.target.value);
+
+      const reg = this.reg;
+      let v = e.target.value;
+      if ([2, 3, 4].includes(this.formatType)) {
+        v = e.target.value.replace(/^0(\d)/, "$1");
+      }
+      if (e.inputType && !e.inputType.startsWith("insert")) {
+        // 如果不是插入事件, 主要是为了解决删除字符事件
+        if ([3, 4].includes(this.formatType)) {
+          // 小数的时候需要特殊处理, 比如删除点后, value值不符合reg规则了, 需要进行处理
+          const matchStr = v.trim().match(this.reg2);
+          if (matchStr && matchStr[0]) {
+            this.$emit("update:modelValue", matchStr[0].replace(/^0/, ""));
+          } else {
+            this.$emit("update:modelValue", v);
+          }
+        } else {
+          this.$emit("update:modelValue", v);
+        }
+        return;
+      }
+
+      if (e.inputType && e.inputType === "insertFromPaste") {
+        // 粘贴事件, 需要对特殊情况进行处理
+        if (this.formatType === 2) {
+          const matchStr = v.trim().match(this.reg2);
+          if (matchStr && matchStr[0]) {
+            this.$emit("update:modelValue", matchStr[0]);
+          } else {
+            this.$emit("update:modelValue", v);
+          }
+        }
+        if ([3, 4].includes(this.formatType)) {
+          const matchStr = v.trim().match(this.reg2);
+          if (matchStr && matchStr[0]) {
+            this.$emit("update:modelValue", matchStr[0]);
+          } else {
+            this.$emit("update:modelValue", v);
+          }
+        }
+        // format===''的时候,不做任何处理
+        this.$emit("update:modelValue", v);
+        return;
+      }
+
+      if (e.inputType && e.inputType === "insertCompositionText") {
+        // 中文输入法事件, 要针对情况处理
+        // 数字模式下, 直接禁止输入法输入
+        if ([2, 3, 4].includes(this.formatType)) {
+          this.$refs.input.value = this.modelValue;
+          this.$emit("update:modelValue", this.modelValue);
+          return;
+        }
+        // 非数字模式下,允许中文输入法
+        // if (/^[a-z]{1,}('[a-z]{1,})*$/.test(e.data)) {
+        //   return
+        // } else {
+        this.realValue = v;
+        this.$emit("update:modelValue", v);
+        // }
+        return;
+      }
+
+      if (this.formatType === 1) {
+        this.$emit("update:modelValue", v);
+        return;
+      }
+
+      if (this.formatType === 2) {
+        // 整数
+        // 如果输入的不是数字,直接删掉输入的字符
+        if (!/^\d$/.test(e.data) || !reg.test(v)) {
+          // 如果插入的不是数字或点,或者不满足reg的条件(超出限制字符) 直接重置
+          this.$refs.input.value = this.modelValue;
+          this.$emit("update:modelValue", this.modelValue);
+        } else {
+          this.$emit("update:modelValue", v);
+        }
+        return;
+      }
+      if ([3, 4].includes(this.formatType)) {
+        // 小数
+        if (!/^(\d|\.)$/.test(e.data) || !reg.test(v)) {
+          // 如果插入的不是数字或点,或者不满足reg的条件(超出限制字符) 直接重置
+          this.$emit("update:modelValue", this.modelValue);
+          this.$refs.input.value = this.modelValue;
+        } else {
+          this.$emit("update:modelValue", v);
+        }
+      }
     },
   },
 };

@@ -6,57 +6,31 @@
       <!--
       至多显示6个页码,也就是说如果数量超过6页, 增加一个扩展按钮,该按钮点击后直接跳到另一个页面
      -->
-      <div
-        v-if="splitLeft"
-        class="page"
-        :class="{ active: realPageNo === 1 }"
-        @click="toggleFirst(1)"
-      >
+      <div v-if="splitLeft" class="page" :class="{ active: realPageNo === 1 }" @click="toggleFirst(1)">
         1
       </div>
       <div v-if="splitLeft" class="page">...</div>
-      <div
-        v-for="item in pageLeft"
-        :key="item"
-        class="page"
-        :class="{ active: realPageNo === item }"
-        @click="togglePage(item, true)"
-      >
+      <div v-for="item in pageLeft" :key="item" class="page" :class="{ active: realPageNo === item }"
+        @click="togglePage(item, true)">
         {{ item }}
       </div>
       <div v-if="splitRight" class="page">...</div>
-      <div
-        v-if="splitRight"
-        class="page"
-        :class="{ active: realPageNo === pageCount }"
-        @click="toggleLast()"
-      >
+      <div v-if="splitRight" class="page" :class="{ active: realPageNo === pageCount }" @click="toggleLast()">
         {{ pageCount }}
       </div>
       <div v-if="splitRight" class="next_page" @click="toNext"></div>
     </div>
-    <var-scene v-if="sizes.length" :pl="12">
-      <var-select
-        :value="pageSize"
-        :data="sizes"
-        :w="100"
-        :clearable="false"
-        @change="(v) => $emit('pageSizeChanged', Number(v))"
-      ></var-select>
-    </var-scene>
-    <var-scene v-if="jumper" flex middle :pl="12">
+    <div v-if="sizes.length" class="page_size">
+      <var-select :value="pageSize" :data="sizes" :w="100" :clearable="false"
+        @change="(v) => $emit('pageSizeChanged', Number(v))"></var-select>
+    </div>
+    <div v-if="jumper" class="page_go">
       前往
-      <var-scene :pl="4" :pr="4">
-        <var-input
-          v-model="jumpPageNo"
-          format="6"
-          :w="72"
-          @blur="changePage"
-          @enter="changePage"
-        ></var-input>
-      </var-scene>
+      <div>
+        <var-input v-model="jumpPageNo" format="6" :w="72" @blur="changePage" @enter="changePage"></var-input>
+      </div>
       页
-    </var-scene>
+    </div>
   </div>
 </template>
 <script>
@@ -211,18 +185,21 @@ export default {
   display: flex;
   align-items: center;
   user-select: none;
+
   .paper_num {
     display: flex;
     align-items: center;
     user-select: none;
   }
-  .paper_num > div {
+
+  .paper_num>div {
     cursor: pointer;
     width: 36px;
     height: 36px;
     border-radius: 4px;
     border: 1px solid $border-color;
   }
+
   .total {
     width: auto;
     flex-shrink: 0;
@@ -230,6 +207,7 @@ export default {
     align-items: center;
     padding: 0 10px;
   }
+
   .prev_page,
   .next_page,
   .page {
@@ -243,26 +221,46 @@ export default {
     align-items: center;
     justify-content: center;
     transition: all 0.2s linear;
+
     &:hover {
       color: red;
     }
+
     &.active {
       color: white;
       background-color: #ff6f17;
       border-color: #ff6f17;
     }
   }
+
   .prev_page {
     transform: rotate(180deg);
     background-image: url("./arrow.svg");
+
     &:hover {
       background-image: url("./arrow-hover.svg");
     }
   }
+
   .next_page {
     background-image: url("./arrow.svg");
+
     &:hover {
       background-image: url("./arrow-hover.svg");
+    }
+  }
+
+  .page_size {
+    padding-left: 12px;
+  }
+
+  .page_go {
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+
+    >div {
+      padding: 0 4px;
     }
   }
 }

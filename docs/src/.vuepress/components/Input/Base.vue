@@ -11,7 +11,7 @@ export default {
   name: "InputBase",
   data() {
     return {
-      name: "",
+      name: "ns",
     };
   },
 };

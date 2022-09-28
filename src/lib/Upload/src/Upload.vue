@@ -7,46 +7,27 @@
       <div class="v_upload_progress" :class="{ show: progress }" @click.stop="">
         <div v-for="item in selectedFiles" :key="item.fileName">
           <div class="v_upload_progress_item">
-            <var-scene flex middle class="file_info">
-              <var-scene grow class="file_name">
+            <div class="file_info">
+              <div class="file_name">
                 {{ item.file.name }}
-              </var-scene>
+              </div>
 
-              <var-scene
-                fixed
-                flex
-                middle
-                class="progress_result"
-                :class="{ success: item.rate == 1 }"
-              >
-                <div
-                  class="percent"
-                  :class="{ show: item.rate && item.rate < 1 }"
-                >
+              <div class="progress_result" :class="{ success: item.rate == 1 }">
+                <div class="percent" :class="{ show: item.rate && item.rate < 1 }">
                   {{ Math.floor(item.rate * 100) }}%
                 </div>
                 <IconSuccess class="result_success" />
-              </var-scene>
-            </var-scene>
+              </div>
+            </div>
             <div class="progress_bg">
-              <div
-                class="progress_bar"
-                :style="{ width: item.rate * 100 + '%' }"
-              ></div>
+              <div class="progress_bar" :style="{ width: item.rate * 100 + '%' }"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <input
-      ref="input"
-      type="file"
-      hidden
-      :disabled="disabled"
-      :multiple="multiple"
-      :accept="accept"
-      @change="inputFileChange"
-    />
+    <input ref="input" type="file" hidden :disabled="disabled" :multiple="multiple" :accept="accept"
+      @change="inputFileChange" />
   </div>
 </template>
 <script>
@@ -217,6 +198,7 @@ export default {
 .v_upload {
   .v_upload_body {
     display: flex;
+
     .v_upload_default_field {
       width: 100px;
       height: 100px;
@@ -232,41 +214,54 @@ export default {
       font-weight: lighter;
       background: url("./images/plus.svg") no-repeat center center/30px 30px;
       background-color: rgba(255, 249, 247, 0.397);
+
       &:hover {
         // color: rgb(243, 162, 86);
         border-color: rgb(243, 162, 86);
       }
+
       &.disabled {
         cursor: not-allowed;
       }
     }
+
     .v_upload_progress {
       flex-grow: 1;
       font-size: 12px;
       display: none;
       padding: 0 10px;
+
       &.show {
         display: block;
       }
+
       .file_info {
         transition: all 0.2s linear;
         border-radius: 4px;
         padding: 4px;
         position: relative;
+        display: flex;
+        align-items: center;
+
         &:hover {
           background-color: rgb(246, 246, 246);
+
           .delete_row {
             opacity: 1;
             // display: flex;
           }
         }
       }
+
       .file_name {
+        flex-grow: 1;
+        display: flex;
         color: #999;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
       }
+
       .delete_row {
         position: absolute;
         top: 0;
@@ -278,28 +273,39 @@ export default {
         opacity: 0;
         background-color: rgb(246, 246, 246);
         transition: all 0.2s linear;
+
         .delete {
           width: 14px;
           height: 14px;
           cursor: pointer;
           transition: all 0.2s linear;
+
           &:hover {
             transform: scale(1.1);
           }
         }
       }
+
       .progress_result {
+        display: flex;
+        align-items: center;
+        flex-grow: 0;
+        flex-shrink: 0;
+
         .percent {
           display: none;
+
           &.show {
             display: block;
           }
         }
+
         .result_success {
           width: 14px;
           height: 14px;
           display: none;
         }
+
         &.success {
           .result_success {
             display: block;
@@ -310,20 +316,24 @@ export default {
           }
         }
       }
+
       @keyframes progress_icon_show {
         from {
           opacity: 0;
         }
+
         to {
           opacity: 1;
         }
       }
+
       .progress_bg {
         width: 100%;
         background-color: rgb(240, 240, 240);
         height: 2px;
         border-radius: 4px;
         overflow: hidden;
+
         .progress_bar {
           height: 100%;
           background-color: #58bd2d;

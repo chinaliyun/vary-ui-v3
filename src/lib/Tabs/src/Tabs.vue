@@ -1,26 +1,13 @@
 <template>
   <div class="v_tabs">
-    <var-scene
-      flex
-      class="tab_bar"
-      :class="{ border, background }"
-      :style="realStyle"
-    >
-      <var-scene
-        v-for="row in data"
-        :key="'tabbar_' + row.name"
-        flex
-        center
-        class="tab_item"
-        :class="{ active: activeTabName == row.name }"
-        :style="labelStyle"
-        @click="selectTab(row.name)"
-      >
-        <var-scene flex middle center class="tab_text">
+    <div class="tab_bar" :class="{ border, background }" :style="realStyle">
+      <div v-for="row in data" :key="'tabbar_' + row.name" class="tab_item"
+        :class="{ active: activeTabName == row.name }" :style="labelStyle" @click="selectTab(row.name)">
+        <div class="tab_text">
           {{ row.label }}
-        </var-scene>
-      </var-scene>
-    </var-scene>
+        </div>
+      </div>
+    </div>
     <div v-for="row in data" :key="'tab_content_' + row.name">
       <slot v-if="activeTabName == row.name" :name="row.name" />
     </div>
@@ -109,9 +96,12 @@ export default {
 .v_tabs {
   .tab_bar {
     height: 36px;
+    display: flex;
+
     &.border {
       border-bottom: 1px solid $border-color;
     }
+
     &.background {
       background-color: #f9f9f9;
       border: 1px solid #e2e2e2;
@@ -119,16 +109,25 @@ export default {
       border-top-right-radius: 4px;
     }
   }
+
   .tab_item {
     padding: 0 20px;
     cursor: pointer;
     text-align: center;
+    display: flex;
+    justify-content: center;
+
     .tab_text {
       border-bottom: 2px solid transparent;
       transition: all 0.2s linear;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
     &.active {
       color: $main-color;
+
       .tab_text {
         border-color: $main-color;
       }

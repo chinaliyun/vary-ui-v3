@@ -8,17 +8,14 @@
   所以 datetimer要允许同时展示多个dater与timer,必须有自己的边框 且当dater在datetime中展示时, dater组件不能有自己的边框,
   
 
-
-
-
 -->
 <template>
   <div class="v_datetimer">
-    <var-scene flex middle class="v_datetimer_input">
+    <div class="v_datetimer_input">
       <div class="range_begin">{{ beginValue }}</div>
       <div v-if="ready && range">至</div>
       <div v-if="ready && range" class="range_end">{{ endValue }}</div>
-    </var-scene>
+    </div>
     <div v-if="ready" class="v_datetimer_dialog show">
       <div class="arrow_top"></div>
       <div class="v_datetimer_dialog_outer">
@@ -146,16 +143,21 @@ export default {
 <style lang="scss" scoped>
 .v_datetimer {
   position: relative;
+
   .v_datetimer_input {
     border: 1px solid $border-color2;
     border-radius: 4px;
     height: $input-height;
+    display: flex;
+    align-items: center;
+
     .range_begin,
     .range_end {
       flex-grow: 1;
       text-align: center;
     }
   }
+
   .v_datetimer_dialog {
     display: none;
     position: absolute;
@@ -166,6 +168,7 @@ export default {
     max-width: 300px;
     padding: 10px 0;
     transform-origin: top;
+
     &.show {
       display: block;
       animation: show 0.08s linear;
@@ -176,16 +179,19 @@ export default {
       bottom: 40px;
       transform-origin: bottom;
     }
+
     @keyframes show {
       0% {
         opacity: 0;
         transform: scaleY(0.8);
       }
+
       100% {
         opacity: 1;
         transform: scaleY(1);
       }
     }
+
     .arrow_top {
       position: absolute;
       left: 20px;
@@ -200,6 +206,7 @@ export default {
       border-right: none;
       border-bottom: none;
     }
+
     .arrow_bottom {
       position: absolute;
       left: 20px;
@@ -214,6 +221,7 @@ export default {
       border-left: none;
       border-top: none;
     }
+
     .v_datetimer_dialog_outer {
       border: 1px solid $border-color2;
       border-radius: 4px;

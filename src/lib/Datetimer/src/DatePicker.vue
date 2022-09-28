@@ -1,57 +1,31 @@
 <template>
   <div class="v_date_picker">
-    <var-scene
-      flex
-      middle
-      class="v_date_picker_input"
-      @click="openDialog($event)"
-    >
+    <div class="v_date_picker_input" @click="openDialog($event)">
       <div class="range_begin">{{ showBeginValue }}</div>
       <div v-if="ready && range">至</div>
       <div v-if="ready && range" class="range_end">{{ showEndValue }}</div>
-    </var-scene>
+    </div>
     <div class="v_date_picker_dialog" :class="{ show: visible }" @click.stop="">
       <div class="arrow_top"></div>
-      <var-scene class="v_date_picker_dialog_outer">
-        <var-scene flex>
-          <Dater
-            ref="d1"
-            :visible="visible"
-            :mode="mode"
-            :value="beginValue"
-            :range-value="[beginValue, endValue]"
-            @prev-month="prevMonth(1)"
-            @next-month="nextMonth(1)"
-            @prev-year="(v) => prevYear(1, v)"
-            @next-year="(v) => nextYear(1, v)"
-            @select-year="(v, commit) => selectYear(1, v, commit)"
-            @select-month="(v, commit) => selectMonth(1, v, commit)"
-            @select-date="(v, commit) => selectDate(1, v, commit)"
-          />
-          <var-space w="10" class="line"></var-space>
-          <Dater
-            ref="d2"
-            :visible="visible"
-            v-if="range"
-            :mode="mode"
-            :value="endValue"
-            :range-value="[beginValue, endValue]"
-            @prev-month="prevMonth(2)"
-            @next-month="nextMonth(2)"
-            @prev-year="(v) => prevYear(2, v)"
-            @next-year="(v) => nextYear(2, v)"
-            @select-year="(v, commit) => selectYear(2, v, commit)"
-            @select-month="(v, commit) => selectMonth(2, v, commit)"
-            @select-date="(v, commit) => selectDate(2, v, commit)"
-          />
-        </var-scene>
-
-        <!-- <var-scene flex center p="20" class="control_row">
+      <div class="v_date_picker_dialog_outer">
+        <Dater ref="d1" :visible="visible" :mode="mode" :value="beginValue" :range-value="[beginValue, endValue]"
+          @prev-month="prevMonth(1)" @next-month="nextMonth(1)" @prev-year="(v) => prevYear(1, v)"
+          @next-year="(v) => nextYear(1, v)" @select-year="(v, commit) => selectYear(1, v, commit)"
+          @select-month="(v, commit) => selectMonth(1, v, commit)"
+          @select-date="(v, commit) => selectDate(1, v, commit)" />
+        <var-space w="10" class="line"></var-space>
+        <Dater ref="d2" :visible="visible" v-if="range" :mode="mode" :value="endValue"
+          :range-value="[beginValue, endValue]" @prev-month="prevMonth(2)" @next-month="nextMonth(2)"
+          @prev-year="(v) => prevYear(2, v)" @next-year="(v) => nextYear(2, v)"
+          @select-year="(v, commit) => selectYear(2, v, commit)"
+          @select-month="(v, commit) => selectMonth(2, v, commit)"
+          @select-date="(v, commit) => selectDate(2, v, commit)" />
+        <!-- <div flex center p="20" class="control_row">
           <var-button primary @click="submit">确定</var-button>
           <var-space w="20"></var-space>
           <var-button @click="reset">重置</var-button>
-        </var-scene> -->
-      </var-scene>
+        </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -236,11 +210,11 @@ export default {
       this.originBeginValue =
         this.showBeginValue =
         this.beginValue =
-          moment(
-            this.range
-              ? this.modelValue[0] || undefined
-              : this.modelValue || undefined
-          ).format(validFormat);
+        moment(
+          this.range
+            ? this.modelValue[0] || undefined
+            : this.modelValue || undefined
+        ).format(validFormat);
       d1.initTemp(
         moment(
           this.range
@@ -283,7 +257,7 @@ export default {
       // 如果结束年份与开始年份之差小于20年, 第二个选择的器的起始年份从20年后算起
       if (
         moment(this.endValue).format("YYYY") -
-          moment(this.beginValue).format("YYYY") <=
+        moment(this.beginValue).format("YYYY") <=
         20
       ) {
         d2.initTemp(moment(this.beginValue).add("20", "years"));
@@ -530,11 +504,15 @@ export default {
 <style lang="scss" scoped>
 .v_date_picker {
   position: relative;
+
   .v_date_picker_input {
     border: 1px solid $border-color2;
     border-radius: 4px;
     height: $input-height;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+
     .range_begin,
     .range_end {
       flex-shrink: 0;
@@ -543,6 +521,7 @@ export default {
       text-align: center;
     }
   }
+
   .v_date_picker_dialog {
     display: none;
     position: absolute;
@@ -551,6 +530,7 @@ export default {
     z-index: 10;
     padding: 10px 0;
     transform-origin: top;
+
     &.show {
       display: block;
       animation: show 0.08s linear;
@@ -561,16 +541,19 @@ export default {
       bottom: 40px;
       transform-origin: bottom;
     }
+
     @keyframes show {
       0% {
         opacity: 0;
         transform: scaleY(0.8);
       }
+
       100% {
         opacity: 1;
         transform: scaleY(1);
       }
     }
+
     .arrow_top {
       position: absolute;
       left: 20px;
@@ -585,6 +568,7 @@ export default {
       border-right: none;
       border-bottom: none;
     }
+
     .arrow_bottom {
       position: absolute;
       left: 20px;
@@ -599,11 +583,13 @@ export default {
       border-left: none;
       border-top: none;
     }
+
     .v_date_picker_dialog_outer {
       border: 1px solid $border-color2;
       border-radius: 4px;
       background-color: white;
       box-shadow: 0 1px 10px rgb(231, 231, 231);
+      display: flex;
     }
   }
 }
