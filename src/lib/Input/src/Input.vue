@@ -18,7 +18,7 @@
         }" :value="modelValue" v-bind="$attrs" :autofocus="autofocus" :readonly="readonly" :disabled="disabled"
           :maxlength="maxlength" @input="inputChange" @focus="onFocus" @blur="onBlur" @keyup.enter="enter" />
       </div>
-      <div v-if="!disabled && !readonly && value !== '' && clearable" class="clearable" @click.stop="clearValue">
+      <div v-if="!disabled && !readonly && modelValue !== '' && clearable" class="clearable" @click.stop="clearValue">
         <IconClear />
       </div>
       <div ref="unit" class="suffix_column">
