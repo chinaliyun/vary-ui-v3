@@ -1,15 +1,12 @@
 <template>
-  <div class="v_tabs">
-    <div class="tab_bar" :class="{ border, background }" :style="realStyle">
+  <div class="v_tabs" :class="{  left, center, right , border}">
+    <div class="v_tabs_body">
       <div v-for="row in data" :key="'tabbar_' + row.name" class="tab_item"
-        :class="{ active: activeTabName == row.name }" :style="labelStyle" @click="selectTab(row.name)">
+        :class="{ active: activeName == row.name , border}" @click="selectTab(row)">
         <div class="tab_text">
           {{ row.label }}
         </div>
       </div>
-    </div>
-    <div v-for="row in data" :key="'tab_content_' + row.name">
-      <slot v-if="activeTabName == row.name" :name="row.name" />
     </div>
   </div>
 </template>
@@ -28,10 +25,6 @@ export default {
       type: String,
       default: "",
     },
-    labelWidth: {
-      type: [String, Number],
-      default: "",
-    },
     border: {
       type: Boolean,
       default: false,
@@ -40,13 +33,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    left: Boolean,
+    center: Boolean,
+    right: Boolean,
     height: [String, Number],
     h: [String, Number],
+    width: [String, Number],
+    w: [String, Number],
   },
   data() {
     return {
-      activeTabName: this.data[0].name,
-      labelStyle: {},
+      activeName: '',
     };
   },
   computed: {
@@ -56,11 +53,18 @@ export default {
       if (height) {
         style.height = /(%|px)$/.test(height) ? height : height + "px";
       }
+      const width = this.width || this.w;
+      if (width) {
+        style.width = /(%|px)$/.test(width) ? width : width + "px";
+      }
       return style;
     },
   },
   watch: {
-    defaultName() {
+    data() {
+      this.init()
+    },
+    name() {
       this.init();
     },
   },
@@ -69,24 +73,11 @@ export default {
   },
   methods: {
     init() {
-      this.activeTabName = this.defaultName || this.data[0].name;
-      if (this.labelWidth) {
-        const style = {};
-        if (/^\d+$/.test(this.labelWidth)) {
-          style.width = this.labelWidth + "px";
-        } else if (/^\d+%$/.test(this.labelWidth)) {
-          style.width = this.labelWidth;
-        } else {
-          style.width = "auto";
-        }
-        this.labelStyle = style;
-      }
+      this.activeName = this.defaultName || this.data[0].name;
     },
-    selectTab(name) {
-      if (!this.$listeners.change) {
-        this.activeTabName = name;
-      }
-      this.$emit("change", name);
+    selectTab(item) {
+      this.activeName = item.name;
+      this.$emit("change", item);
     },
   },
 };
@@ -94,20 +85,36 @@ export default {
 
 <style lang="scss" >
 .v_tabs {
-  .tab_bar {
-    height: 36px;
+  display: flex;
+  height: 36px;
+  border-bottom: 1px solid $border-color2;
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.right {
+    justify-content: flex-end;
+  }
+
+  .v_tabs_body {
     display: flex;
+  }
 
-    &.border {
-      border-bottom: 1px solid $border-color;
-    }
+  &.border {
+    border-bottom: 1px solid $border-color;
+    border-bottom-color: transparent;
+  }
 
-    &.background {
-      background-color: #f9f9f9;
-      border: 1px solid #e2e2e2;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-    }
+  &.background {
+    background-color: #f9f9f9;
+    border: 1px solid #e2e2e2;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
   }
 
   .tab_item {
@@ -116,22 +123,49 @@ export default {
     text-align: center;
     display: flex;
     justify-content: center;
+    transition: all 0.2s linear;
 
     .tab_text {
       border-bottom: 2px solid transparent;
-      transition: all 0.2s linear;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    &.active {
-      color: $main-color;
+    &+.tab_item {
+      margin-left: -1px;
+    }
 
+
+    &.active {
       .tab_text {
         border-color: $main-color;
       }
     }
+
+    &.border {
+      .tab_text {
+        border-color: transparent;
+      }
+
+      border: 1px solid $border-color2;
+
+      &:first-child {
+        border-top-left-radius: 4px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 4px;
+      }
+
+      &.active {
+        background-color: $main-color;
+        border-color: $main-color;
+        color: white;
+      }
+    }
+
+
   }
 }
 </style>
