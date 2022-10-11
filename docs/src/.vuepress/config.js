@@ -77,7 +77,7 @@ module.exports = {
         },
         {
           text: "组件库",
-          children: ["avatar", "button", "link", "card", "preview","tab", "tree"],
+          children: ["avatar", "button", "link", "card", "preview","tabs", "tree"],
         },
         {
           text: "弹出窗",

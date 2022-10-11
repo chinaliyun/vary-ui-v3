@@ -1,6 +1,6 @@
 # Vary UI
 
-Vary UI 是基于 Vue2 实现的一套 UI 组件库
+Vary UI 是基于 Vue3 实现的一套 UI 组件库
 
 ## 使用文档
 
@@ -10,7 +10,7 @@ Vary UI 是基于 Vue2 实现的一套 UI 组件库
 
 ```js
 import Vue from "vue";
-import VaryUI from "vary-ui";
+import VaryUI from "vary-ui-v3";
 Vue.use(VaryUI);
 ```
 
@@ -18,7 +18,7 @@ Vue.use(VaryUI);
 
 ```js
 import Vue from "vue";
-import { Button, Link } from "vary-ui";
+import { Button, Link } from "vary-ui-v3";
 
 Vue.use(Button);
 Vue.use(Link);

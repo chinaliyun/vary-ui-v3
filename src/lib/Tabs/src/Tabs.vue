@@ -29,17 +29,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    background: {
-      type: Boolean,
-      default: false,
-    },
     left: Boolean,
     center: Boolean,
     right: Boolean,
-    height: [String, Number],
-    h: [String, Number],
-    width: [String, Number],
-    w: [String, Number],
   },
   data() {
     return {
@@ -47,18 +39,6 @@ export default {
     };
   },
   computed: {
-    realStyle() {
-      const style = {};
-      const height = this.height || this.h;
-      if (height) {
-        style.height = /(%|px)$/.test(height) ? height : height + "px";
-      }
-      const width = this.width || this.w;
-      if (width) {
-        style.width = /(%|px)$/.test(width) ? width : width + "px";
-      }
-      return style;
-    },
   },
   watch: {
     data() {
