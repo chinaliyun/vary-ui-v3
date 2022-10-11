@@ -104,6 +104,7 @@ export default {
     display: flex;
     justify-content: center;
     transition: all 0.2s linear;
+    background-color: white;
 
     .tab_text {
       border-bottom: 2px solid transparent;
