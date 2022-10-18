@@ -1,8 +1,8 @@
 <template>
   <div class="v_tabs" :class="{  left, center, right , border}">
-    <div class="v_tabs_body">
+    <div class="v_tabs_body" :class="{shadow}">
       <div v-for="row in data" :key="'tabbar_' + row.name" class="tab_item"
-        :class="{ active: activeName == row.name , border}" @click="selectTab(row)">
+        :class="{ active: activeName == row.name , border,}" @click="selectTab(row)">
         <div class="tab_text">
           {{ row.label }}
         </div>
@@ -32,6 +32,7 @@ export default {
     left: Boolean,
     center: Boolean,
     right: Boolean,
+    shadow: Boolean,
   },
   data() {
     return {
@@ -88,13 +89,12 @@ export default {
   &.border {
     border-bottom: 1px solid $border-color;
     border-bottom-color: transparent;
-  }
 
-  &.background {
-    background-color: #f9f9f9;
-    border: 1px solid #e2e2e2;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    .v_tabs_body {
+      &.shadow {
+        box-shadow: 0 2px 3px rgba(237, 237, 237, 0.839);
+      }
+    }
   }
 
   .tab_item {
@@ -105,6 +105,8 @@ export default {
     justify-content: center;
     transition: all 0.2s linear;
     background-color: white;
+
+
 
     .tab_text {
       border-bottom: 2px solid transparent;

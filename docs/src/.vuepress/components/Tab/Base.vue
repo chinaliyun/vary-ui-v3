@@ -11,6 +11,8 @@
   <var-tabs :data="data" border w="300" name="2" center></var-tabs>
   <br>
   <var-tabs :data="data" border w="300" name="3" right></var-tabs>
+
+  <var-tabs :data="data" border w="300" name="3" center shadow></var-tabs>
 </template>
 <script>
 export default {
