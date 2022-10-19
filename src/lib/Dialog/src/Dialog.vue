@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="v_dialog"
-    :class="{ dialog_show: visible }"
-    @click="closeDialogOnMask"
-  >
+  <div class="v_dialog" :class="{ dialog_show: visible }" @click="closeDialogOnMask">
     <div class="v_dialog_container" @click.stop="">
       <div class="v_dialog_header">
         <slot name="header">
@@ -73,25 +69,30 @@ export default {
   background-color: rgba(0, 0, 0, 0.582);
   display: none;
   justify-content: center;
-  min-height: 700px;
+  // min-height: 50vh;
+
   // overflow-y: scroll;
   &.dialog_show {
     display: flex;
     align-items: center;
+
     .v_dialog_container {
       animation: show 0.1s linear;
       animation-fill-mode: forwards;
       transform-origin: center;
     }
+
     @keyframes show {
       from {
         transform: scale(0.8) translateY(-30px);
       }
+
       to {
         transform: scale(1) translateY(-40px);
       }
     }
   }
+
   .v_dialog_container {
     background-color: white;
     border-radius: 4px;
@@ -103,10 +104,12 @@ export default {
       align-items: center;
       padding: 10px 10px 10px 30px;
       border-bottom: 1px solid $dialog-border-color;
+
       .title {
         flex-grow: 1;
         font-size: 18px;
       }
+
       .close {
         color: #999;
         font-size: 28px;
@@ -114,12 +117,14 @@ export default {
         cursor: pointer;
         margin-right: 10px;
         flex-shrink: 0;
+
         &:hover {
           color: $dialog-color;
         }
       }
     }
   }
+
   .v_dialog_body {
     padding: 20px 30px;
   }

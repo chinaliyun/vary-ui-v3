@@ -6,7 +6,7 @@ pageClass: custom-page-class
 
 ## 基础用法
 
-`alert`已经绑定到`Vue.prototype.$alert`属性中, 代码中可以直接通过`this.$alert`显示弹窗, 弹窗会返回一个`Promise`对象, 用户可以通过该返回值, 判断用户的下一步操作
+可以直接通过`this.$alert`显示弹窗, 弹窗会返回一个`Promise`对象, 用户可以通过该返回值, 判断用户的下一步操作
 
 <br/>
 

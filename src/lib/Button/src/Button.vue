@@ -9,10 +9,8 @@
 </template>
 
 <script>
-import { debounce } from "../../../utils";
 import Mixin from "../../../mixin";
 
-let debounceTimer = null;
 export default {
   name: "VarButton",
   mixins: [Mixin],
@@ -37,6 +35,8 @@ export default {
     return {
       realWait: 0,
       classAttrs: [],
+      debounceTimer: null,
+
     };
   },
   mounted() {
@@ -56,21 +56,16 @@ export default {
         e.stopImmediatePropagation();
         return;
       }
-      if (debounceTimer) {
+      if (this.debounceTimer) {
         // 定时器已存在, 禁止冒泡
         e.stopPropagation();
         e.stopImmediatePropagation();
-        // clearTimeout(debounceTimer);
-        // debounceTimer = setTimeout(() => {
-        //   clearTimeout(debounceTimer);
-        //   debounceTimer = null;
-        // }, this.realWait);
         return;
       }
       // 如果定时器不存在,
-      debounceTimer = setTimeout(() => {
-        clearTimeout(debounceTimer);
-        debounceTimer = null;
+      this.debounceTimer = setTimeout(() => {
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = null;
       }, this.realWait);
     },
   },

@@ -6,7 +6,7 @@ pageClass: custom-page-class
 
 ## 基础用法
 
-`message`已经绑定到`Vue.prototype.$message`属性中, 代码中可以直接通过`this.$message`显示弹窗
+可以直接通过`this.$message`显示弹窗
 
 <br/>
 

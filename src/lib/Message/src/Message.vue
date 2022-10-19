@@ -1,10 +1,10 @@
 <template>
-  <div class="v_message" :style="style">
-    <div
-      class="v_message_body"
-      :class="{ [type]: type, message_open: open, message_close: close }"
-    >
-      <div class="icon"></div>
+  <div class="v_message" :style="{top:top+'px'}" :class="{ }">
+    <div class="v_message_body" ref="v_message_body" :class="{ [type]: type,message_open: open, message_close: close }">
+      <img v-if="type && type==='success'" class="icon" src="./images/success.svg" alt="">
+      <img v-if="type && type==='warning'" class="icon" src="./images/warning.svg" alt="">
+      <img v-if="type && type==='error'" class="icon" src="./images/error.svg" alt="">
+      <img v-if="type && type==='tips'" class="icon" src="./images/tips.svg" alt="">
       <div class="v_message_content">{{ msg }}</div>
     </div>
   </div>
@@ -18,26 +18,29 @@ export default {
       type: "default",
       open: false,
       close: false,
+      top: '0',
       style: {},
     };
   },
-  beforeDestroy() {},
+  beforeUnmount() {
+  },
   methods: {
     init(type, msg, index) {
-      this.renderStyle(index);
+      this.top = 30 + (index - 1) * 50
       this.type = type;
       this.msg = msg;
       this.open = true;
       setTimeout(() => {
-        this.open = false;
+        this.$refs.v_message_body.addEventListener('animationend', () => {
+          this.end()
+        }, {
+          once: true
+        })
         this.close = true;
       }, 3000);
     },
-    renderStyle(index) {
-      const top = 30 + (index - 1) * 50 + "px";
-      this.style = {
-        top,
-      };
+    setTop(index) {
+      this.top = 30 + (index - 1) * 50
     },
   },
 };
@@ -45,11 +48,12 @@ export default {
 <style lang="scss" >
 .v_message {
   position: fixed;
-  top: -30px;
+  // top: -30px;
   left: 50%;
   z-index: 1000;
   transform: translateX(-50%);
   transition: all 0.2s linear;
+
   .v_message_body {
     min-width: 300px;
     min-height: 40px;
@@ -57,6 +61,41 @@ export default {
     padding: 0 20px;
     border-radius: 4px;
     display: flex;
+
+    &.message_open {
+      animation: show .2s linear;
+      // animation-fill-mode: forwards;
+    }
+
+    @keyframes show {
+      from {
+        // transform: translateX(-50%) translateY(-30px);
+        opacity: 0;
+      }
+
+      to {
+        // transform: translateX(-50%) translateY(10px);
+        opacity: 1;
+      }
+    }
+
+    &.message_close {
+      animation: hide .2s linear;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes hide {
+      from {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+    }
+
     .icon {
       flex-shrink: 0;
       display: block;
@@ -67,69 +106,34 @@ export default {
       background-size: 100%;
       margin-right: 10px;
     }
+
     .v_message_content {
       white-space: nowrap;
       text-overflow: ellipsis;
       max-width: 600px;
       overflow: hidden;
     }
-    &.message_open {
-      animation: show 0.1s linear;
-      animation-fill-mode: forwards;
-    }
-    @keyframes show {
-      from {
-        top: 0px;
-        transform: translate(-50%, -30px);
-        opacity: 0;
-      }
-      to {
-        transform: translate(-50%, 0px);
-        opacity: 1;
-      }
-    }
 
-    &.message_close {
-      animation: hide 0.1s linear;
-      animation-fill-mode: forwards;
-    }
-    @keyframes hide {
-      from {
-        transform: translate(-50%, 0px);
-        opacity: 1;
-      }
-      to {
-        transform: translate(-50%, -30px);
-        opacity: 0;
-      }
-    }
+
+
     &.success {
       background-color: $message-success-background-color;
       color: $message-success-color;
-      .icon {
-        background-image: url("./images/success.svg");
-      }
     }
+
     &.warning {
       background-color: $message-warning-background-color;
       color: $message-warning-color;
-      .icon {
-        background-image: url("./images/warning.svg");
-      }
     }
+
     &.error {
       background-color: $message-error-background-color;
       color: $message-error-color;
-      .icon {
-        background-image: url("./images/error.svg");
-      }
     }
+
     &.tips {
       background-color: $message-tips-background-color;
       color: $message-tips-color;
-      .icon {
-        background-image: url("./images/tips.svg");
-      }
     }
   }
 }

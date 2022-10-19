@@ -1,19 +1,17 @@
 <template>
   <div class="v_notify" :style="style">
-    <div
-      class="v_notify_container"
-      :class="{ [type]: type, message_open: open, message_close: close }"
-    >
-      <div class="icon"></div>
+    <div class="v_notify_container" ref="v_notify_container"
+      :class="{ [type]: type, message_open: open, message_close: close }">
+      <img v-if="type && type==='success'" class="icon" src="./images/success.svg" alt="">
+      <img v-if="type && type==='warning'" class="icon" src="./images/warning.svg" alt="">
+      <img v-if="type && type==='error'" class="icon" src="./images/error.svg" alt="">
+      <img v-if="type && type==='tips'" class="icon" src="./images/tips.svg" alt="">
       <div class="notify_body">
         <div class="notify_title">{{ options.title }}</div>
         <div class="notify_content">{{ options.content }}</div>
-        <div
-          class="notify_btns"
-          :class="{
-            show: buttonVisible,
-          }"
-        >
+        <div class="notify_btns" :class="{
+          show: buttonVisible,
+        }">
           <button class="confirm_btn" @click="clickBtn">
             {{ options.buttonText }}
           </button>
@@ -74,14 +72,17 @@ export default {
       };
     },
     clickBtn() {
-      this.options.buttonCallback(this.options.meta);
+      // 先关闭组件, 再执行callback
       this.closeNotify();
+      this.options.buttonCallback(this.options.meta);
     },
     closeNotify() {
+      this.$refs.v_notify_container.addEventListener('animationend', () => {
+        this.remove()
+      }, {
+        once: true
+      })
       this.close = true;
-      setTimeout(() => {
-        this.options.remove();
-      }, 200);
     },
   },
 };
@@ -95,6 +96,7 @@ export default {
   //   transform: translateX(-50%);
   transition: all 0.2s linear;
   user-select: none;
+
   .v_notify_container {
     width: 424px;
     align-items: center;
@@ -104,6 +106,7 @@ export default {
     box-shadow: 0 0 4px rgb(228, 228, 228);
     display: flex;
     align-items: flex-start;
+
     .icon {
       display: block;
       width: 24px;
@@ -113,6 +116,7 @@ export default {
       background-size: 100%;
       margin-right: 10px;
     }
+
     .notify_title {
       font-size: 18px;
       color: $notify-title-color;
@@ -121,6 +125,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .notify_content {
       color: $notify-content-color;
       text-align: justify;
@@ -130,11 +135,14 @@ export default {
       max-height: 100px;
       overflow: hidden;
     }
+
     .notify_body {
       flex-grow: 1;
     }
+
     .notify_btns {
       display: none;
+
       &.show {
         display: flex;
         justify-content: flex-end;
@@ -154,11 +162,13 @@ export default {
         font-size: 14px;
         background-color: $notify-confirm-background-color;
         color: $notify-confirm-color;
+
         &:hover {
           background-color: lighten($notify-confirm-background-color, 12%);
         }
       }
     }
+
     .close_icon {
       transform: rotate(45deg);
       // font-size: 40px;
@@ -169,20 +179,24 @@ export default {
       cursor: pointer;
       fill: $notify-close-color;
       transition: all 0.2s linear;
+
       &:hover {
         fill: $notify-close-hover-color;
       }
     }
+
     &.message_open {
       animation: show 0.1s linear;
       animation-fill-mode: forwards;
     }
+
     @keyframes show {
       from {
         top: 0px;
         transform: translate(0%, 50px);
         opacity: 0;
       }
+
       to {
         transform: translate(0%, 0px);
         opacity: 1;
@@ -193,31 +207,37 @@ export default {
       animation: hide 0.1s linear;
       animation-fill-mode: forwards;
     }
+
     @keyframes hide {
       from {
         transform: translate(0, 0px);
         opacity: 1;
       }
+
       to {
         transform: translate(100%, 0px);
         opacity: 0;
       }
     }
+
     &.success {
       .icon {
         background-image: url("./images/success.svg");
       }
     }
+
     &.warning {
       .icon {
         background-image: url("./images/warning.svg");
       }
     }
+
     &.error {
       .icon {
         background-image: url("./images/error.svg");
       }
     }
+
     &.tips {
       .icon {
         background-image: url("./images/tips.svg");

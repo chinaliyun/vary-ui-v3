@@ -1,4 +1,4 @@
-// import Alert from "./lib/Alert";
+import Alert from "./lib/Alert";
 import Avatar from "./lib/Avatar";
 import Button from "./lib/Button";
 import Card from "./lib/Card";
@@ -8,8 +8,8 @@ import Dialog from "./lib/Dialog";
 import Field from "./lib/Field";
 import Input from "./lib/Input";
 import Link from "./lib/Link";
-// import Message from "./lib/Message";
-// import Notify from "./lib/Notify";
+import Message from "./lib/Message";
+import Notify from "./lib/Notify";
 import Pager from "./lib/Pager";
 // import Preview from "./lib/Preview";
 import Radio from "./lib/Radio";
@@ -26,7 +26,7 @@ import Tree from "./lib/Tree";
 // import Loading from "./lib/Loading";
 
 let components = [
-  // Alert,
+  Alert,
   Avatar,
   Button,
   Card,
@@ -36,8 +36,8 @@ let components = [
   Field,
   Input,
   Link,
-  //   Message,
-  //   Notify,
+  Message,
+  Notify,
   Pager,
   // Preview,
   Radio,
@@ -63,7 +63,7 @@ const Instance = {
 };
 
 export {
-  //   Alert,
+  Alert,
   Avatar,
   // Button,
   // Card,
@@ -73,7 +73,7 @@ export {
   // Field,
   // Input,
   // Link,
-  //   Message,
+  Message,
   //   Notify,
   //   Pager,
   //   Preview,

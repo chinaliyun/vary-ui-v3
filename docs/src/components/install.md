@@ -5,10 +5,10 @@ pageClass: custom-page-class
 # 安装
 
 ```bash
-yarn install vary-ui
+yarn install vary-ui-v3
 ```
 
-## Nuxt 项目引入组件库
+<!-- ## Nuxt 项目引入组件库
 
 如果是在 Nuxt 项目中引用`vary-ui`组件库, 推荐在`plugin`目录中为`vary-ui`创建单独的插件, 然后在`nuxt.config.js`文件中引用它
 
@@ -38,18 +38,21 @@ export default {
     transpile: ['vary-ui''],
   },
 }
-```
+``` -->
 
-## Vue 项目引入组件库
+## Vue3 项目引入组件库
 
 如果是单纯的`Vue SPA`项目中引用该组件库, 直接在入口文件`main.js`中引入即可
 
 ```js
 // main.js
-import Vue from "vue";
+import {createApp} from "vue";
 import VaryUI from "vary-ui";
 
-Vue.use(VaryUI, {
+import App from "./App.vue";
+const app = createApp(App)
+
+app.use(VaryUI, {
   // options
 });
 ```

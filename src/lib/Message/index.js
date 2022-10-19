@@ -1,34 +1,35 @@
 import { createApp } from "vue";
 import Message from "./src/Message.vue";
 
+let instanceIndex = 0;
 let instanceMap = [];
 const createComponent = function (type, msg) {
-  const Component = createApp(Message);
-  const instance = new Component();
-  instanceMap.push(instance);
-  instance.init(type, msg, instanceMap.length);
-  const el = instance.$mount().$el;
-  document.body.appendChild(el);
+  const varyAlerts = document.createElement('div');
+  varyAlerts.classList.add(`vary_alert_${instanceIndex}`);
+  document.body.appendChild(varyAlerts)
 
-  let timer = setTimeout(() => {
-    instance.$destroy();
-    document.body.removeChild(instance.$el);
-    instanceMap = instanceMap.filter((item) => item._uid !== instance._uid);
-    resetStyle();
-    clearTimeout(timer);
-    timer = null;
-  }, 3100);
-  return instance;
+  const Component = createApp(Message);
+  const componentInstance = Component.mount(varyAlerts);
+  componentInstance.createIndex = instanceIndex++;
+  componentInstance.end = function () {
+    document.body.removeChild(varyAlerts);
+    instanceMap = instanceMap.filter((item) => item.createIndex !== componentInstance.createIndex);
+    renderList();
+
+  }
+  instanceMap.push(instance);
+  componentInstance.init(type, msg, instanceMap.length);
+  return componentInstance;
 };
 
 function instance(msg) {
   createComponent("success", msg);
 }
 
-const resetStyle = function () {
+const renderList = function () {
   if (instanceMap.length > 0) {
     instanceMap.forEach((item, index) => {
-      item.renderStyle(index + 1);
+      item.setTop(index + 1);
     });
   }
 };

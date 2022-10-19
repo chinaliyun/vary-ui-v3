@@ -6,7 +6,7 @@ pageClass: custom-page-class
 
 ## 基础用法
 
-`notify`已经绑定到`Vue.prototype.$notify`属性中, 代码中可以直接通过`this.$notify`显示弹窗,与`Alert`不同的是, `Notify`弹窗通过`buttonText,buttonCallback`来分别定义按钮的文字内容以及按钮的点击事件
+可以直接通过`this.$notify`显示弹窗,与`Alert`不同的是, `Notify`弹窗通过`buttonText,buttonCallback`来分别定义按钮的文字内容以及按钮的点击事件
 
 <br/>
 

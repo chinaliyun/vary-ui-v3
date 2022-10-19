@@ -16,6 +16,7 @@ export default {
         });
         console.log("用户点击了确定按钮");
       } catch (error) {
+        console.log(error);
         if (error.cancel) {
           console.log("用户通过取消按钮关闭了弹窗");
         }

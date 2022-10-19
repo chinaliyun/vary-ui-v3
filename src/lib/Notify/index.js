@@ -4,8 +4,8 @@ import Notify from "./src/Notify.vue";
 let nextInstance = [];
 let instanceMap = [];
 let top = 20;
+let instanceIndex = 0;
 const createComponent = function (type, options) {
-  top = 20;
   const { title, content, buttonText, buttonCallback, meta } = options;
   // 限制用户传参类型
   const realOptions = {
@@ -32,63 +32,67 @@ const createComponent = function (type, options) {
     );
   }
 
-  instanceMap.forEach((item) => {
-    top += item.$el.getBoundingClientRect().height + 20;
-  });
-  const Component = createApp(Notify);
-  const instance = new Component();
+  // 统计所有组件的总高度
+  top = !instanceMap.length ? 20 : instanceMap.reduce((pv, cv) => {
+    return pv + cv.$el.getBoundingClientRect().height + 20
+  }, 20);
 
-  realOptions.top = top;
-  instance.init(type, realOptions);
-
-  const el = instance.$mount().$el;
-
-  document.body.appendChild(el);
-  const elHeight = el.getBoundingClientRect().height + 20;
-  // console.log("create", el, el.getBoundingClientRect());
-  if (top + elHeight > window.innerHeight) {
-    // 如果新增的弹窗,位置在可视区域之外, 照样把他放进队列中 但是要先移除该弹窗
+  if (top + 140 > window.innerHeight) {
+    // 如果新增的弹窗,可能超出可视区域, 暂时放进队列中
     nextInstance.push({
       type,
       realOptions,
     });
-    document.body.removeChild(el);
 
     return;
   }
-  instanceMap.push(instance);
-  instance.show();
 
-  realOptions.remove = function () {
-    // console.log("remove", elHeight);
-    document.body.removeChild(el);
-    const currentIndex = instanceMap.findIndex(
-      (item) => item._uid === instance._uid
-    );
-    instanceMap = instanceMap.filter((item) => item._uid !== instance._uid);
-    resetStyle(elHeight, currentIndex);
+  const eleWrapper = document.createElement('div');
+  eleWrapper.classList.add(`vary_alert_${instanceIndex}`);
+  document.body.appendChild(eleWrapper)
+
+
+  const Component = createApp(Notify);
+
+  const componentInstance = Component.mount(eleWrapper);
+  componentInstance.createIndex = instanceIndex++;
+
+  // 添加销毁回调函数
+  componentInstance.remove = function () {
+    resetStyle(componentInstance);
+    instanceMap = instanceMap.filter((item) => item.createIndex !== componentInstance.createIndex);
+    document.body.removeChild(eleWrapper);
     if (nextInstance.length > 0) {
       createComponent(nextInstance[0].type, nextInstance[0].realOptions);
       nextInstance = nextInstance.slice(1);
     }
   };
-  return instance;
+
+  realOptions.top = top;
+  componentInstance.init(type, realOptions);
+
+  instanceMap.push(componentInstance);
+  componentInstance.show();
+
+  return componentInstance;
 };
 
-function instance(options) {
-  createComponent("success", options);
-}
-
-const resetStyle = function (elHeight, currentIndex) {
-  // console.log("resetStyle", elHeight, currentIndex);
+function resetStyle(componentInstance) {
+  const elHeight = componentInstance.$el.getBoundingClientRect().height + 20;
+  const createIndex = componentInstance.createIndex;
+  console.log("resetStyle", elHeight, createIndex);
   if (instanceMap.length > 0) {
-    instanceMap.forEach((item, itemIndex) => {
-      if (itemIndex >= currentIndex) {
+    instanceMap.forEach((item) => {
+      if (item.createIndex >= createIndex) { //只需要调整被关闭组件之后的组件
         item.renderStyle(elHeight);
       }
     });
   }
 };
+
+function instance(options) {
+  createComponent("success", options);
+}
 
 instance.success = function (msg) {
   createComponent("success", msg);
