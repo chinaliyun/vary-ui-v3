@@ -3,16 +3,10 @@
     <var-button primary @click="openLoading">点击打开loading</var-button>
     <br />
     <br />
-    <div
-      w="300"
-      h="100"
-      flex
-      middle
-      center
-      v-loading="loading"
-      loading-text="请稍等"
-      class="comp_root"
-    ></div>
+    <div w="300" h="100" flex middle center v-loading="loading" data-loading-text="loading..." data-loading-mask="true"
+      class="comp_root">
+      任意文字
+    </div>
   </div>
 </template>
 <script>

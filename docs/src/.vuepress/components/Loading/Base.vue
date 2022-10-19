@@ -6,7 +6,7 @@ export default {
   name: "LoadingBase",
   methods: {
     loading() {
-      const loading = this.$loading({ text: "请稍等" });
+      const loading = this.$loading({ mask: true, text: 'loading...' });
 
       setTimeout(() => {
         loading.close();

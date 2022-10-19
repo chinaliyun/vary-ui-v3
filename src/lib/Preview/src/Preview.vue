@@ -5,31 +5,16 @@
     </div>
     <div ref="wrapper" class="wrapper">
       <div ref="img" class="preview_img_wrapper">
-        <img
-          v-if="src"
-          ref="img"
-          :src="src"
-          alt=""
-          @load="imgLoad"
-          @error="imgError"
-        />
+        <img v-if="src" ref="img" :src="src" alt="" @load="imgLoad" @error="imgError" />
       </div>
-      <IconArrow
-        class="icon_arrow icon_arrow_left"
-        @click.stop="changeIndex(current - 1)"
-      />
+      <IconArrow class="icon_arrow icon_arrow_left" @click.stop="changeIndex(current - 1)" />
       <IconArrow class="icon_arrow" @click.stop="changeIndex(current + 1)" />
     </div>
     <div class="thumb_row" @mouseup.stop="">
       <div ref="scrollWrapper" class="thumb_item_wrapper">
         <div ref="scroll" class="thumb_scroll">
-          <div
-            v-for="(item, index) in thumbs"
-            :key="index"
-            class="thumb_item"
-            :class="{ active: current === index, error: item.error === 1 }"
-            @click="changeIndex(index)"
-          >
+          <div v-for="(item, index) in thumbs" :key="index" class="thumb_item"
+            :class="{ active: current === index, error: item.error === 1 }" @click="changeIndex(index)">
             <img :src="item.src" alt="" @error="thumbLoadError(item)" />
           </div>
         </div>
@@ -83,7 +68,7 @@ export default {
     document.body.style.height = "100vh";
     document.body.style.overflow = "hidden";
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.body.style.height = "auto";
     document.body.style.overflow = "auto";
     window.removeEventListener("mouseup", this.mouseup);
@@ -160,15 +145,13 @@ export default {
       }
       if (itemRight < (scrollWrapperRect.width - 120) / 2) {
         console.log("右边缘位置", scrollWrapperRect.width);
-        scrollEle.style.transform = `translateX(${
-          scrollWrapperRect.width - scrollWidth
-        }px)`;
+        scrollEle.style.transform = `translateX(${scrollWrapperRect.width - scrollWidth
+          }px)`;
         return;
       }
       console.log("调整到居中位置");
-      scrollEle.style.transform = `translateX(-${
-        itemLeft + 50 - scrollWrapperRect.width / 2
-      }px)`;
+      scrollEle.style.transform = `translateX(-${itemLeft + 50 - scrollWrapperRect.width / 2
+        }px)`;
     },
     resize() {
       wrapperEle = this.$refs.wrapper;
@@ -237,9 +220,8 @@ export default {
         //   transformValue[4] + translateX,
         //   transformValue[5] + translateY
         // );
-        const transformTarget = `translate(${
-          transformValue[4] + translateX
-        }px,${transformValue[5] + translateY}px) scale(${zoom}, ${zoom})`;
+        const transformTarget = `translate(${transformValue[4] + translateX
+          }px,${transformValue[5] + translateY}px) scale(${zoom}, ${zoom})`;
         console.log(transformTarget);
         ele.style.transform = transformTarget;
         const transformValue2 = getEleTransformProperty();
@@ -434,10 +416,12 @@ export default {
   animation-fill-mode: forwards;
   opacity: 0;
   transition: opacity 2s linear;
+
   @keyframes show {
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
@@ -447,10 +431,12 @@ export default {
     from {
       opacity: 1;
     }
+
     to {
       opacity: 0;
     }
   }
+
   .close_row {
     position: absolute;
     top: -50px;
@@ -463,6 +449,7 @@ export default {
     opacity: 0.4;
     transition: opacity 0.1s linear;
     cursor: pointer;
+
     .icon_close {
       display: block;
       width: 40px;
@@ -470,10 +457,12 @@ export default {
       margin-top: 50px;
       margin-left: 10px;
     }
+
     &:hover {
       opacity: 1;
     }
   }
+
   .wrapper {
     height: calc(100vh - 140px);
     display: flex;
@@ -481,6 +470,7 @@ export default {
     align-items: center;
     // overflow: hidden;
     position: relative;
+
     .icon_arrow {
       position: absolute;
       right: 30px;
@@ -491,32 +481,38 @@ export default {
       opacity: 0.2;
       transition: opacity 0.1s linear;
       cursor: pointer;
+
       &:hover {
         opacity: 1;
       }
     }
   }
+
   .icon_arrow_left {
     right: auto;
     left: 30px;
     transform: rotate(180deg);
   }
+
   .thumb_row {
     display: flex;
     justify-content: center;
     padding: 20px 0;
     position: relative;
     z-index: 10;
+
     .thumb_item_wrapper {
       max-width: 60vw;
       // background-color: red;
       // border: 1px solid red;
       overflow: hidden;
+
       .thumb_scroll {
         display: flex;
         transition: transform 0.1s linear;
       }
     }
+
     .thumb_item {
       flex-shrink: 0;
       width: 100px;
@@ -530,17 +526,21 @@ export default {
       justify-content: center;
       opacity: 0.2;
       transition: opacity 0.1s linear;
+
       img {
         display: block;
         max-width: 100%;
         max-height: 100%;
       }
+
       &:hover {
         opacity: 1;
       }
+
       &.active {
         opacity: 1;
       }
+
       &.error {
         img {
           max-width: 50%;
@@ -549,8 +549,10 @@ export default {
       }
     }
   }
+
   .preview_img_wrapper {
     transform: translate(0, 0) scale(1);
+
     img {
       display: block;
       max-width: 60vw;

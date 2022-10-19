@@ -18,98 +18,101 @@ $input-error-color: #ff2200; // 输入框错误状态下的边框色
 $link-color: #ff6a00;
 
 
-$alert-title-color:$font-color;// 弹窗标题文字颜色
-$alert-content-color: $font-color2;// 弹窗内容文字颜色
+$alert-title-color: $font-color; // 弹窗标题文字颜色
+$alert-content-color: $font-color2; // 弹窗内容文字颜色
 $alert-border-color: $border-color; // 弹窗边框色
 $alert-cover-color: rgba(58, 58, 58, 0.692); // 弹窗遮罩层颜色
 $alert-background-color: white; // 弹窗内容背景色
-$alert-confirm-color:white;// 确认按钮文字颜色
-$alert-confirm-background-color:$primary-color;// 确认按钮背景色
-$alert-cancel-color:$font-color;// 取消按钮文字颜色
-$alert-cancel-background-color:white;// 取消按钮背景色
-$alert-close-color:$font-color; // 关闭按钮默认颜色
-$alert-close-hover-color:$main-color;// 关闭按钮hover效果颜色
+$alert-confirm-color: white; // 确认按钮文字颜色
+$alert-confirm-background-color: $primary-color; // 确认按钮背景色
+$alert-cancel-color: $font-color; // 取消按钮文字颜色
+$alert-cancel-background-color: white; // 取消按钮背景色
+$alert-close-color: $font-color; // 关闭按钮默认颜色
+$alert-close-hover-color: $main-color; // 关闭按钮hover效果颜色
 
 
-$message-color:$main-color;
-$message-success-color:#67c23a;
-$message-success-background-color:#edf8e8;
-$message-error-color:#ff1f00;
-$message-error-background-color:#feeeee; 
-$message-warning-color:#e29835;
-$message-warning-background-color:#fdf5e9;
-$message-tips-color:#b7b7b7;
-$message-tips-background-color:#f2f2f3;
+$message-color: $main-color;
+$message-success-color: #67c23a;
+$message-success-background-color: #edf8e8;
+$message-error-color: #ff1f00;
+$message-error-background-color: #feeeee;
+$message-warning-color: #e29835;
+$message-warning-background-color: #fdf5e9;
+$message-tips-color: #b7b7b7;
+$message-tips-background-color: #f2f2f3;
 
 $notiy-background-color: white;
-$notify-title-color:$font-color;
-$notify-content-color:$font-color2;
-$notify-confirm-color:white;// 确认按钮文字颜色
-$notify-confirm-background-color:$primary-color;// 确认按钮背景色
-$notify-close-color:$font-color; // 关闭按钮默认颜色
-$notify-close-hover-color:$main-color;// 关闭按钮hover效果颜色
+$notify-title-color: $font-color;
+$notify-content-color: $font-color2;
+$notify-confirm-color: white; // 确认按钮文字颜色
+$notify-confirm-background-color: $primary-color; // 确认按钮背景色
+$notify-close-color: $font-color; // 关闭按钮默认颜色
+$notify-close-hover-color: $main-color; // 关闭按钮hover效果颜色
 
 
 
-$button-color:$font-color2; // 按钮默认文字颜色
-$button-background-color: $border-color2;// 按钮默认背景颜色
-$button-primary-color:white; // primary 风格文字颜色
-$button-primary-background-color: $primary-color;// primary 风格背景色
-$button-warning-color:white;// warning 风格文字颜色
-$button-warning-background-color: $warning-color;// warning 风格背景色
-$button-error-color:white;// error 风格文字颜色
-$button-error-background-color: $error-color;// error 风格背景色
-$button-success-color:white;// success 风格文字颜色
-$button-success-background-color: $success-color;// success 风格背景色
-$button-disabled-background-color: $border-color2;// 禁用状态背景色
+$button-color: $font-color2; // 按钮默认文字颜色
+$button-background-color: $border-color2; // 按钮默认背景颜色
+$button-primary-color: white; // primary 风格文字颜色
+$button-primary-background-color: $primary-color; // primary 风格背景色
+$button-warning-color: white; // warning 风格文字颜色
+$button-warning-background-color: $warning-color; // warning 风格背景色
+$button-error-color: white; // error 风格文字颜色
+$button-error-background-color: $error-color; // error 风格背景色
+$button-success-color: white; // success 风格文字颜色
+$button-success-background-color: $success-color; // success 风格背景色
+$button-disabled-background-color: $border-color2; // 禁用状态背景色
 
 $card-border-color: $border-color2; // card组件边框色
 
-$checkbox-color:$border-color; // 复选框默认颜色
-$checkbox-selected-color:$main-color; // 复选框被选中颜色
+$checkbox-color: $border-color; // 复选框默认颜色
+$checkbox-selected-color: $main-color; // 复选框被选中颜色
 
-$field-tips-color:$tips-color; // 表单控件提示语颜色
-$field-error-color: $error-color;// 表单控件错误提示语颜色
+$field-tips-color: $tips-color; // 表单控件提示语颜色
+$field-error-color: $error-color; // 表单控件错误提示语颜色
 
-$input-height:40px;
-$input-color:$font-color; // 输入框默认文字颜色
-$input-placeholder-color:$font-color3; // 输入框提示语颜色
-$input-border-color:$border-color; // 提示框边框色
-$input-border-focus-color:$border-color;// 提示框获得焦点颜色
-$input-border-error-color:$error-color;// 输入框错误提示颜色
-$input-background-color:white;// 输入框背景色
-$input-disabled-color:$border-color2; // 输入框被禁用状态颜色
-$input-option-arrow-color:$border-color;// 输入框选项的下级菜单箭头颜色
-$input-option-border-color:$border-color;// 输入框选项的边框色
+$input-height: 40px;
+$input-color: $font-color; // 输入框默认文字颜色
+$input-placeholder-color: $font-color3; // 输入框提示语颜色
+$input-border-color: $border-color; // 提示框边框色
+$input-border-focus-color: $border-color; // 提示框获得焦点颜色
+$input-border-error-color: $error-color; // 输入框错误提示颜色
+$input-background-color: white; // 输入框背景色
+$input-disabled-color: $border-color2; // 输入框被禁用状态颜色
+$input-option-arrow-color: $border-color; // 输入框选项的下级菜单箭头颜色
+$input-option-border-color: $border-color; // 输入框选项的边框色
 
-$link-color:$font-color2; // 按钮默认文字颜色
-$link-primary-color:$primary-color; // primary 风格文字颜色
-$link-warning-color:$warning-color;// warning 风格文字颜色
-$link-error-color:$error-color;// error 风格文字颜色
-$link-success-color:$success-color;// success 风格文字颜色
+$link-color: $font-color2; // 按钮默认文字颜色
+$link-primary-color: $primary-color; // primary 风格文字颜色
+$link-warning-color: $warning-color; // warning 风格文字颜色
+$link-error-color: $error-color; // error 风格文字颜色
+$link-success-color: $success-color; // success 风格文字颜色
 $link-disabled-color: $font-color3;
 
 
-$loading-color: $primary-color;// loading组件圆环色
-$loading-border-color: $primary-color;// loading组件圆环色
+
 
 $picker-border-color: $border-color; // picker组件边框色
 $picker-background-color: $border-color; // picker组件背景色
 
-$dialog-color:$main-color; // 弹窗内的标题文字颜色
-$dialog-border-color:$border-color; // 弹窗的边框色
-$dialog-confirm-button-color:$primary-color; // 弹窗确认按钮的背景色
+$dialog-color: $main-color; // 弹窗内的标题文字颜色
+$dialog-border-color: $border-color; // 弹窗的边框色
+$dialog-confirm-button-color: $primary-color; // 弹窗确认按钮的背景色
 
 
-$table-head-color:$font-color; // 表格中的th部分文字颜色
-$table-head-background-color:#fbfbfb;// th部分的背景颜色
+$table-head-color: $font-color; // 表格中的th部分文字颜色
+$table-head-background-color: #fbfbfb; // th部分的背景颜色
 $table-even-background-color: white; // 双数行的背景颜色
-$table-cell-color:$font-color2;// 单元格内的默认文字颜色
-$table-border-color: $border-color2;// 表格的边框色
-$table-row-hover-background-color:rgba(246, 230, 230, 0.257);// 行hover状态下的背景颜色
-$table-row-min-height:40px;
+$table-cell-color: $font-color2; // 单元格内的默认文字颜色
+$table-border-color: $border-color2; // 表格的边框色
+$table-row-hover-background-color: rgba(246, 230, 230, 0.257); // 行hover状态下的背景颜色
+$table-row-min-height: 40px;
 
-$media-lg-width:1440px;
-$media-md-width:1190px;
-$media-sm-width:992px;
-$media-xs-width:768px;
+$media-lg-width: 1440px;
+$media-md-width: 1190px;
+$media-sm-width: 992px;
+$media-xs-width: 768px;
+
+$loading-border-color: $primary-color; // loading组件圆环色
+$loading-background-color: rgba(0, 0, 0, 0.611);
+$loading-text-color: $primary-color;

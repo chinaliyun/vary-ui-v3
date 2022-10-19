@@ -23,7 +23,7 @@ import Tabs from "./lib/Tabs";
 import Textarea from "./lib/Textarea";
 import Upload from "./lib/Upload";
 import Tree from "./lib/Tree";
-// import Loading from "./lib/Loading";
+import Loading from "./lib/Loading";
 
 let components = [
   Alert,
@@ -51,7 +51,7 @@ let components = [
   Textarea,
   Upload,
   Tree,
-  //   Loading,
+  Loading,
 ];
 
 const Instance = {
