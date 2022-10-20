@@ -1,0 +1,1 @@
+import{_ as a,r as t,o,g as s,w as r,e as c}from"./app.6f714696.js";const n={name:"CardBase"};function _(d,p,f,i,l,m){const e=t("var-card");return o(),s(e,{title:"\u6807\u9898",shadow:""},{default:r(()=>[c(" \u5361\u7247\u5185\u5BB9 ")]),_:1})}const x=a(n,[["render",_],["__file","Base.vue"]]);export{x as default};

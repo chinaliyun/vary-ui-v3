@@ -1,0 +1,1 @@
+import{_ as a,r as s,o,g as t}from"./app.6f714696.js";const c={name:"AvatarBase",data(){return{src:require("./images/1.jpg")}}};function n(_,p,u,f,e,i){const r=s("var-avatar");return o(),t(r,{src:e.src},null,8,["src"])}const m=a(c,[["render",n],["__file","Base.vue"]]);export{m as default};

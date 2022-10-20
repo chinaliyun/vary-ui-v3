@@ -1,3 +1,4 @@
+// @ts-nocheck
 const { execSync, exec } = require("child_process");
 const { readFileSync, writeFileSync } = require("fs");
 const path = require("path");
@@ -69,7 +70,7 @@ execPromise(`git pull origin ${branchName}`, (res) => {
   });
 
 async function updateVersion() {
-  const pkgFile = path.resolve(__dirname, "./package.json");
+  const pkgFile = path.resolve(__dirname, "./src/package.json");
   const pkg = readFileSync(pkgFile, {
     encoding: "utf-8",
   });
@@ -96,36 +97,36 @@ async function updateVersion() {
 
   console.log(`编译npm包`);
 
-  const barTotal = 100;
-  const bar = new ProgressBar("Building [:bar]", { total: barTotal });
-  const timer = setInterval(() => {
-    // console.log('');
-    bar.tick();
-    if (bar.complete) {
-      clearInterval(timer);
-    }
-  }, 500);
+  // const barTotal = 100;
+  // const bar = new ProgressBar("Building [:bar]", { total: barTotal });
+  // const timer = setInterval(() => {
+  //   // console.log('');
+  //   bar.tick();
+  //   if (bar.complete) {
+  //     clearInterval(timer);
+  //   }
+  // }, 500);
 
-  execPromise("yarn deploy", (_) => {})
-    .then((deploy) => {
-      bar.tick(barTotal - bar.curr);
-      console.log("\n");
-      console.log(deploy.toString());
+  // execPromise("yarn deploy", (_) => { })
+  //   .then((deploy) => {
+  //     bar.tick(barTotal - bar.curr);
+  //     console.log("\n");
+  //     console.log(deploy.toString());
 
-      writeFileSync(pkgFile, pkg.replace(versionReg, `"$1${version}"`), {
-        encoding: "utf-8",
-      });
-      console.log(`推送Npm包：`.green);
-      const publish = execSync(`npm publish --access=public`);
-      const branchName = publish.toString().replace(/\n/, "");
-      console.log(branchName);
-      console.log(`\nSuccess: <${version}>版本发布成功\n`.green);
-      commit();
-    })
-    .catch((e) => {
-      console.log(e);
-      process.exit();
+  try {
+    writeFileSync(pkgFile, pkg.replace(versionReg, `"$1${version}"`), {
+      encoding: "utf-8",
     });
+    console.log(`推送Npm包：`.green);
+    const publish = execSync(`cd src && npm publish --access=public`);
+    const branchName = publish.toString().replace(/\n/, "");
+    console.log(branchName);
+    console.log(`\nSuccess: <${version}>版本发布成功\n`.green);
+    commit();
+  } catch (e) {
+    console.log(e);
+    process.exit();
+  };
 }
 
 function question(q) {

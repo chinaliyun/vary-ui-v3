@@ -1,0 +1,1 @@
+import{_ as o,r as a,o as r,g as s}from"./app.6f714696.js";const t={name:"UploadBase",data(){return{}}};function n(c,p,_,d,l,u){const e=a("var-upload");return r(),s(e,{progress:""})}const m=o(t,[["render",n],["__file","Base.vue"]]);export{m as default};

@@ -1,0 +1,1 @@
+import{_ as a,r as t,o,g as s,w as n,e as r}from"./app.6f714696.js";const c={name:"ButtonDisabled"};function _(i,l,d,p,f,m){const e=t("var-link");return o(),s(e,{disabled:"",primary:""},{default:n(()=>[r("\u88AB\u7981\u7528\u7684\u6309\u94AE")]),_:1})}const x=a(c,[["render",_],["__file","Disabled.vue"]]);export{x as default};

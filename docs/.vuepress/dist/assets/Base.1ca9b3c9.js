@@ -1,0 +1,1 @@
+import{_ as t,r as e,o as r,g as n,w as s,b as _}from"./app.6f714696.js";const c={name:"FieldBase"};function p(i,l,d,f,u,m){const a=e("var-input"),o=e("var-field");return r(),n(o,{label:"\u59D3\u540D",required:"",err:"\u8BF7\u8F93\u5165\u6B63\u786E\u7684\u59D3\u540D"},{default:s(()=>[_(a,{w:"200"})]),_:1})}const B=t(c,[["render",p],["__file","Base.vue"]]);export{B as default};

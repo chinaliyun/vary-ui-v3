@@ -1,0 +1,1 @@
+import{_ as a,r as e,o as r,g as n,w as s,b as _}from"./app.6f714696.js";const c={name:"FieldTop"};function p(l,f,d,i,m,u){const o=e("var-textarea"),t=e("var-field");return r(),n(t,{top:"",label:"\u4E2A\u4EBA\u8BF4\u660E:"},{default:s(()=>[_(o)]),_:1})}const x=a(c,[["render",p],["__file","Top.vue"]]);export{x as default};

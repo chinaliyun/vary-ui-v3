@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-9c1e9c6c","path":"/sections/datetimer.html","title":"Datetimer \u65E5\u671F\u9009\u62E9\u5668","lang":"zh-CN","frontmatter":{"pageClass":"custom-page-class"},"excerpt":"","headers":[],"git":{},"filePathRelative":"sections/datetimer.md"}');export{e as data};
